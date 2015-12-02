@@ -17,25 +17,31 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+/**
+ * Exception thrown by {@link DataExporter}
+ * 
+ * @author Santhosh Kumar
+ */
+public class DataExportException extends RuntimeException {
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
+    private static final long serialVersionUID = 1L;
 
-public class TextExporterTest extends DataExporterTestBase {
-    
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    public DataExportException() {
+        super();
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+
+    public DataExportException(String message, Throwable cause) {
+        super(message, cause);
     }
+
+    public DataExportException(String message) {
+        super(message);
+    }
+
+    public DataExportException(Throwable cause) {
+        super(cause);
+    }
+
 }

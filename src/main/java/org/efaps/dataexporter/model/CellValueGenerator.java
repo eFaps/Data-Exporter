@@ -17,25 +17,15 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.model;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
-
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
-    
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
-    }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
-    }
+public interface CellValueGenerator {
+    /**
+     * Callback is called for a cell whose column is indicated as <code>generatesOwnData</code>.
+     * 
+     * @param cellDetails the details of the cell
+     * 
+     * @return the generated cell value
+     */
+    public Object generateCellValue(CellDetails cellDetails);
 }

@@ -21,8 +21,8 @@ package com.brsanthu.dataexporter.examples;
 
 import java.io.StringWriter;
 
-import com.brsanthu.dataexporter.DataExporter;
-import com.brsanthu.dataexporter.output.text.TextExporter;
+import org.efaps.dataexporter.DataExporter;
+import org.efaps.dataexporter.output.text.TextExporter;
 
 public class DataExporterHelloWorld {
     

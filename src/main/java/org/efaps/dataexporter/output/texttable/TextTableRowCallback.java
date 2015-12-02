@@ -17,25 +17,14 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.texttable;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import org.efaps.dataexporter.model.DataExporterCallback;
+import org.efaps.dataexporter.model.RowDetails;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
-    
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
-    }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
-    }
+public interface TextTableRowCallback extends DataExporterCallback {
+    public abstract int getMinRowHeight(RowDetails rowDetails, int defaultMaxRowHeight);
+    public abstract boolean isDisplayRowBorder(RowDetails rowDetails, boolean defaultDisplayRowBorder);
+    public abstract String getLeftDivider(RowDetails rowDetails, String defaultDivider);
+    public abstract String getRightDivider(RowDetails rowDetails, String defaultDivider);
 }

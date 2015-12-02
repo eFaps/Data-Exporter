@@ -17,25 +17,28 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.text;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import org.efaps.dataexporter.ExportOptions;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+public class TextExportOptions extends ExportOptions {
+    private String delimiter = "\t";
+    private boolean trimValues = false;
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    public boolean isTrimValues() {
+        return trimValues;
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
+    public TextExportOptions setTrimValues(boolean trimValues) {
+        this.trimValues = trimValues;
         
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+        return this;
     }
+    public String getDelimiter() {
+        return delimiter;
+    }
+    public TextExportOptions setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+        return this;
+    }
+    
 }

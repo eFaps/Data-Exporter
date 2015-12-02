@@ -21,6 +21,8 @@ package com.brsanthu.dataexporter.output.csv;
 
 import java.sql.Date;
 
+import org.efaps.dataexporter.output.csv.CsvExportOptions;
+import org.efaps.dataexporter.output.csv.CsvExporter;
 import org.junit.Test;
 
 import com.brsanthu.dataexporter.DataExporterTestBase;

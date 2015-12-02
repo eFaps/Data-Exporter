@@ -23,9 +23,9 @@ import java.io.StringWriter;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.efaps.dataexporter.model.NumberColumn;
+import org.efaps.dataexporter.output.text.TextExporter;
 import org.junit.Test;
-
-import com.brsanthu.dataexporter.output.text.TextExporter;
 
 import static org.junit.Assert.*;
 

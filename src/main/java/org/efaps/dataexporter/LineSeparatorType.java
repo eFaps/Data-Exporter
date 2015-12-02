@@ -17,25 +17,21 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
-
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+public enum LineSeparatorType {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    NATIVE("Native"),
+    WINDOWS ("Windows"),
+    UNIX ("Unix");
+    
+    private String label = null;
+
+    private LineSeparatorType(String label) {
+        this.label = label;
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+
+    public String getLabel() {
+        return label;
     }
 }

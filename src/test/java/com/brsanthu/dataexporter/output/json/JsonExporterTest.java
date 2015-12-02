@@ -21,10 +21,10 @@ package com.brsanthu.dataexporter.output.json;
 
 import java.sql.Date;
 
+import org.efaps.dataexporter.model.json.JsonExporter;
 import org.junit.Test;
 
 import com.brsanthu.dataexporter.DataExporterTestBase;
-import com.brsanthu.dataexporter.model.json.JsonExporter;
 
 public class JsonExporterTest extends DataExporterTestBase {
     

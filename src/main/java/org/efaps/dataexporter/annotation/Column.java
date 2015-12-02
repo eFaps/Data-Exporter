@@ -17,25 +17,25 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.annotation;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
+import org.efaps.dataexporter.model.AlignType;
 
-public class TextExporterTest extends DataExporterTestBase {
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD})
+public @interface Column {
+    String name() default Null;
+    String title() default Null;
+    Class type() default NullClass.class;
+    int width() default -1;
+    AlignType align() default AlignType.MIDDLE_LEFT;
+    boolean skip() default false;
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
-    }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
-    }
+    public static final class NullClass{/*Empty class*/}
+    public static final String Null = "null";
 }

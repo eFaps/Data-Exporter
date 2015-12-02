@@ -19,10 +19,12 @@
  */
 package com.brsanthu.dataexporter.output.tree;
 
+import org.efaps.dataexporter.model.Row;
+import org.efaps.dataexporter.output.tree.TreeExportStyle;
+import org.efaps.dataexporter.output.tree.TreeExporter;
 import org.junit.Test;
 
 import com.brsanthu.dataexporter.DataExporterTestBase;
-import com.brsanthu.dataexporter.model.Row;
 
 public class TreeExporterTest extends DataExporterTestBase {
 

@@ -17,25 +17,28 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.xml;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import org.efaps.dataexporter.ExportOptions;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+/**
+ * Various options that can be set while exporting to xml.
+ * 
+ * @author Santhosh Kumar
+ */
+public class XmlExportOptions extends ExportOptions {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    private boolean prettyPrint = false;
+    
+    public boolean isPrettyPrint() {
+        return prettyPrint;
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+
+    /**
+     * Indicates if xml output should be formatted with indentation and new lines.
+     */
+    public XmlExportOptions setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+        return this;
     }
 }

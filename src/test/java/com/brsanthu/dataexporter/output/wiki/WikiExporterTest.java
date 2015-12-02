@@ -19,6 +19,7 @@
  */
 package com.brsanthu.dataexporter.output.wiki;
 
+import org.efaps.dataexporter.output.wiki.WikiExporter;
 import org.junit.Test;
 
 import com.brsanthu.dataexporter.DataExporterTestBase;

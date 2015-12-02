@@ -17,25 +17,27 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.model;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+public class AbstractDataExporterCallback implements DataExporterCallback {
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
-    
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    @Override
+    public void beforeRow(RowDetails rowDetails) {
+        //no implementation
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+
+    @Override
+    public void afterRow(RowDetails rowDetails) {
+        //no implementation
+    }
+
+    @Override
+    public void beforeCell(CellDetails cellDetails) {
+        //no implementation
+    }
+
+    @Override
+    public void afterCell(CellDetails cellDetails) {
+        //no implementation
     }
 }

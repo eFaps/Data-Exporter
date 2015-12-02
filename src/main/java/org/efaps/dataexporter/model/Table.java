@@ -17,25 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.model;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
 
-public class TextExporterTest extends DataExporterTestBase {
+public class Table {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    private DataExporterCallback callback = null;
+    private List<Column> columns = new ArrayList<Column>();    
+    
+    public DataExporterCallback getCallback() {
+        return callback;
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+    public void setCallback(DataExporterCallback callback) {
+        this.callback = callback;
+    }
+    public List<Column> getColumns() {
+        return columns;
+    }
+    public void setColumns(List<Column> columns) {
+        this.columns = columns;
+    }
+    public void addColumn(Column column) {
+        columns.add(column);
     }
 }

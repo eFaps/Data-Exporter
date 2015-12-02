@@ -17,23 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.util;
+package org.efaps.dataexporter.model;
 
-import org.junit.Test;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.efaps.dataexporter.DataExportException;
 
-import static org.junit.Assert.*;
-
-import org.efaps.dataexporter.util.Util;
-
-public class TestUtil {
+public class BeanRow extends Row {
     
-    @Test
-    public void testCheckForNotNull() throws Exception {
+    private Object bean = null;
+    
+    public BeanRow(Object bean) {
+        super();
+        this.bean = bean;
+    }
+
+    public Object getCellValue(String columnName) {
         try {
-            Util.checkForNotNull(null, null);
-            fail("Expected a exception");
-        } catch (IllegalArgumentException e) {
-            //all is well
+            return PropertyUtils.getProperty(bean, columnName);
+        } catch (Exception e) {
+            throw new DataExportException("Exception while reading the property " + columnName 
+                + " from bean " + bean +  " of type " + bean.getClass().getName(), e);
         }
     }
+    
+    public Object getBean() {
+		return bean;
+	}
 }

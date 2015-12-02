@@ -17,25 +17,29 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.model;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
 
-public class TextExporterTest extends DataExporterTestBase {
+/**
+ * Column which outputs the current row number, starting from 1.
+ * 
+ * @author Santhosh Kumar
+ */
+public class LineNumberColumn extends NumberColumn {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    public LineNumberColumn(String name, int width) {
+        this(name, null, width);
     }
-    
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+
+    public LineNumberColumn(String name, String title, int width) {
+        super(name, title, width, 0);
+        setGeneratesOwnData(true);
+        setCellValueGenerator(new CellValueGenerator() {
+            @Override
+            public Object generateCellValue(CellDetails cellDetails) {
+                return new Integer(cellDetails.getRowIndex() + 1);
+            }
+        });
     }
 }

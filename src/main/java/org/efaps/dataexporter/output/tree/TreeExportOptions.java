@@ -17,25 +17,19 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.tree;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import org.efaps.dataexporter.ExportOptions;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+public class TreeExportOptions extends ExportOptions {
+    private TreeExportStyle style = TreeExportStyle.CLASSIC;
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
-    }
+	public TreeExportStyle getStyle() {
+		return style;
+	}
+
+	public void setStyle(TreeExportStyle style) {
+		this.style = style;
+	}
     
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
-    }
 }

@@ -17,25 +17,30 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.html;
 
-import org.efaps.dataexporter.output.text.TextExporter;
-import org.junit.Test;
+import org.efaps.dataexporter.ExportOptions;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+public class HtmlExportOptions extends ExportOptions {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
-    }
+    private boolean prettyPrint = false;
+    private boolean alignCells = true;
     
-    @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+    public boolean isPrettyPrint() {
+        return prettyPrint;
     }
+
+    public HtmlExportOptions setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+        return this;
+    }
+
+	public boolean isAlignCells() {
+		return alignCells;
+	}
+
+	public void setAlignCells(boolean alignCells) {
+		this.alignCells = alignCells;
+	}
+    
 }

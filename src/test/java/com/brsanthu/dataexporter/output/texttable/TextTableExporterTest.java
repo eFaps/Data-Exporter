@@ -22,15 +22,18 @@ package com.brsanthu.dataexporter.output.texttable;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
+import org.efaps.dataexporter.DataExporter;
+import org.efaps.dataexporter.model.AbstractDataExporterCallback;
+import org.efaps.dataexporter.model.AlignType;
+import org.efaps.dataexporter.model.CellDetails;
+import org.efaps.dataexporter.model.DataExporterCallback;
+import org.efaps.dataexporter.model.StringColumn;
+import org.efaps.dataexporter.output.texttable.TextTableExportOptions;
+import org.efaps.dataexporter.output.texttable.TextTableExportStyle;
+import org.efaps.dataexporter.output.texttable.TextTableExporter;
 import org.junit.Test;
 
-import com.brsanthu.dataexporter.DataExporter;
 import com.brsanthu.dataexporter.DataExporterTestBase;
-import com.brsanthu.dataexporter.model.AbstractDataExporterCallback;
-import com.brsanthu.dataexporter.model.AlignType;
-import com.brsanthu.dataexporter.model.CellDetails;
-import com.brsanthu.dataexporter.model.DataExporterCallback;
-import com.brsanthu.dataexporter.model.StringColumn;
 
 public class TextTableExporterTest extends DataExporterTestBase {
 

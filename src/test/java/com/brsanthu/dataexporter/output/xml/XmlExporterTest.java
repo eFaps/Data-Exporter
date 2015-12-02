@@ -19,6 +19,8 @@
  */
 package com.brsanthu.dataexporter.output.xml;
 
+import org.efaps.dataexporter.output.xml.XmlExportOptions;
+import org.efaps.dataexporter.output.xml.XmlExporter;
 import org.junit.Test;
 
 import com.brsanthu.dataexporter.DataExporterTestBase;
