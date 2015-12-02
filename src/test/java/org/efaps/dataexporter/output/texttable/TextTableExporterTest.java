@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,72 +29,69 @@ import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;
 import org.efaps.dataexporter.model.DataExporterCallback;
 import org.efaps.dataexporter.model.StringColumn;
-import org.efaps.dataexporter.output.texttable.TextTableExportOptions;
-import org.efaps.dataexporter.output.texttable.TextTableExportStyle;
-import org.efaps.dataexporter.output.texttable.TextTableExporter;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 public class TextTableExporterTest extends DataExporterTestBase {
 
     public TextTableExporterTest() {
-        exporter = new TextTableExporter(sw);
+        this.exporter = new TextTableExporter(this.sw);
     }
 
     @Test
     public void testDefaultFormat() throws Exception {
         addData();
-        exporter.finishExporting();
+        this.exporter.finishExporting();
 
-        System.out.println(sw.toString());
-        compareText("testDefaultFormat.txt", sw.toString());
+        System.out.println(this.sw.toString());
+        compareText("testDefaultFormat.txt", this.sw.toString());
     }
 
     @Test
     public void testBeanRows() throws Exception {
         addDataBeans();
-        exporter.finishExporting();
+        this.exporter.finishExporting();
 
-        System.out.println(sw.toString());
+        System.out.println(this.sw.toString());
     }
 
     @Test
     public void testRepeatHeaders() throws Exception {
-        ((TextTableExportOptions) exporter.getOptions()).setRepeatHeadersAfterRows(2);
+        ((TextTableExportOptions) this.exporter.getOptions()).setRepeatHeadersAfterRows(2);
         addData();
-        exporter.finishExporting();
+        this.exporter.finishExporting();
 
-        System.out.println(sw.toString());
-        compareText("testRepeatHeaders.txt", sw.toString());
+        System.out.println(this.sw.toString());
+        compareText("testRepeatHeaders.txt", this.sw.toString());
     }
 
     @Test
     public void testMinRows() throws Exception {
-        ((TextTableExportOptions) exporter.getOptions()).setMinRowHeight(3);
+        ((TextTableExportOptions) this.exporter.getOptions()).setMinRowHeight(3);
         addData();
-        exporter.finishExporting();
+        this.exporter.finishExporting();
 
-        System.out.println(sw.toString());
-        compareText("testMinRows.txt", sw.toString());
+        System.out.println(this.sw.toString());
+        compareText("testMinRows.txt", this.sw.toString());
     }
 
     @Test
     public void testHeaderAlignment() throws Exception {
-        ((TextTableExportOptions) exporter.getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
+        ((TextTableExportOptions) this.exporter.getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
         addData();
-        exporter.finishExporting();
+        this.exporter.finishExporting();
 
-        System.out.println(sw.toString());
-        compareText("testHeaderAlignment.txt", sw.toString());
+        System.out.println(this.sw.toString());
+        compareText("testHeaderAlignment.txt", this.sw.toString());
     }
 
     @Test
     public void testAlignment() throws Exception {
-        DataExporterCallback callback = new AbstractDataExporterCallback() {
+        final DataExporterCallback callback = new AbstractDataExporterCallback() {
 
             @Override
-            public void beforeCell(CellDetails cellDetails) {
-                int row = cellDetails.getRowIndex();
-                int column = cellDetails.getColumnIndex();
+            public void beforeCell(final CellDetails cellDetails) {
+                final int row = cellDetails.getRowIndex();
+                final int column = cellDetails.getColumnIndex();
 
                 AlignType align = null;
                 if (row == 0 && column == 1) {
@@ -121,69 +118,69 @@ public class TextTableExporterTest extends DataExporterTestBase {
             }
         };
 
-        TextTableExporter exporter = new TextTableExporter(sw);
+        final TextTableExporter exporter = new TextTableExporter(this.sw);
         exporter.setCallback(callback);
         exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn(
                         "LEFT", 15), new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
         exporter.getTextTableExportOptions().setMinRowHeight(8);
 
-        String data = "This is alignment test with some reallyreallybig words";
+        final String data = "This is alignment test with some reallyreallybig words";
         exporter.addRow("TOP", data, data, data);
         exporter.addRow("MIDDLE", data, data, data);
         exporter.addRow("BOTTOM", data, data, data);
         exporter.finishExporting();
 
-        System.out.println(sw.toString());
-        
-        compareText("testAlignment.txt", sw.toString());
+        System.out.println(this.sw.toString());
+
+        compareText("testAlignment.txt", this.sw.toString());
     }
-    
+
     @Test
     public void testPrintStyles() throws Exception {
-        Field[] fields = TextTableExportStyle.class.getFields();
-        for (Field field : fields) {
+        final Field[] fields = TextTableExportStyle.class.getFields();
+        for (final Field field : fields) {
             if (field.getType().getName().equals(TextTableExportStyle.class.getName())) {
 
                 System.out.println("");
                 System.out.println("<h2>" + field.getName() + "</h2><pre>");
-                exporter = new TextTableExporter();
-                exporter.getOptions().setEscapeHtml(true);
-                ((TextTableExportOptions) exporter.getOptions()).setStyle((TextTableExportStyle) field.get(null));
+                this.exporter = new TextTableExporter();
+                this.exporter.getOptions().setEscapeHtml(true);
+                ((TextTableExportOptions) this.exporter.getOptions()).setStyle((TextTableExportStyle) field.get(null));
                 setup();
                 addData();
-                exporter.finishExporting();
+                this.exporter.finishExporting();
                 System.out.println("</pre>");
             }
         }
     }
-    
+
     /**
      * This is the test case for github issue#1.
      */
     @Test
-	public void testtIssue1() throws Exception {
-    	
-    	//Essentially if data fits into the cell, whatever the alignment you give, it shoudln't matter
-    	//should produce same result.
-    	for (AlignType alignType : AlignType.values()) {
-        	
-    		StringWriter sw = new StringWriter();
-    		DataExporter exporter = new TextTableExporter(sw);
+    public void testtIssue1() throws Exception {
 
-    		exporter.addColumns(new StringColumn("col1", 20), new StringColumn("col2", 50, alignType));
-        	exporter.startExporting();
-        	exporter.addRow("test", "test with a string of less than 50 chars");
-        	exporter.finishExporting();
-        	
-        	if (alignType.isLeft()) {
-        		compareText("Align:" + alignType, "testIssue1LeftAlign.txt", sw.toString());
-        		
-        	} else if (alignType.isCenter()) {
-        		compareText("Align:" + alignType, "testIssue1CenterAlign.txt", sw.toString());
-        		
-        	} else {
-        		compareText("Align:" + alignType, "testIssue1RightAlign.txt", sw.toString());
-        	}
-		}
-	}
+        //Essentially if data fits into the cell, whatever the alignment you give, it shoudln't matter
+        //should produce same result.
+        for (final AlignType alignType : AlignType.values()) {
+
+            final StringWriter sw = new StringWriter();
+            final DataExporter exporter = new TextTableExporter(sw);
+
+            exporter.addColumns(new StringColumn("col1", 20), new StringColumn("col2", 50, alignType));
+            exporter.startExporting();
+            exporter.addRow("test", "test with a string of less than 50 chars");
+            exporter.finishExporting();
+
+            if (alignType.isLeft()) {
+                compareText("Align:" + alignType, "testIssue1LeftAlign.txt", sw.toString());
+
+            } else if (alignType.isCenter()) {
+                compareText("Align:" + alignType, "testIssue1CenterAlign.txt", sw.toString());
+
+            } else {
+                compareText("Align:" + alignType, "testIssue1RightAlign.txt", sw.toString());
+            }
+        }
+    }
 }

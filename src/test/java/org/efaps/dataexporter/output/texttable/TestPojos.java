@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,8 +21,8 @@ package org.efaps.dataexporter.output.texttable;
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.PojoClassFilter;
@@ -38,28 +38,28 @@ public class TestPojos {
     private List<PojoClass> pojoClasses;
     private PojoValidator pojoValidator;
 
-    @Before
+    @BeforeTest
     public void setup() {
-        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new PojoClassFilter() {
-            
+        this.pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new PojoClassFilter() {
+
             @Override
-            public boolean include(PojoClass pojoClass) {
+            public boolean include(final PojoClass pojoClass) {
                 System.out.println(pojoClass.getName());
                 return pojoClass.getName().endsWith("Style");
             }
         });
 
-        pojoValidator = new PojoValidator();
+        this.pojoValidator = new PojoValidator();
 
         // Create Testers to validate behavior for POJO_PACKAGE
-        pojoValidator.addTester(new SetterTester());
-        pojoValidator.addTester(new GetterTester());
+        this.pojoValidator.addTester(new SetterTester());
+        this.pojoValidator.addTester(new GetterTester());
     }
-    
+
     @Test
     public void testPojos() {
-        for (PojoClass pojoClass : pojoClasses) {
-            pojoValidator.runValidation(pojoClass);
+        for (final PojoClass pojoClass : this.pojoClasses) {
+            this.pojoValidator.runValidation(pojoClass);
         }
     }
 }
