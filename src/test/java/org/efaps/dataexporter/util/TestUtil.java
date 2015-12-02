@@ -17,25 +17,23 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.wiki;
+package org.efaps.dataexporter.util;
 
-import org.efaps.dataexporter.output.wiki.WikiExporter;
 import org.junit.Test;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
+import static org.junit.Assert.*;
 
-public class WikiExporterTest extends DataExporterTestBase {
-    
-    public WikiExporterTest() {
-        exporter = new WikiExporter(sw);
-    }
+import org.efaps.dataexporter.util.Util;
+
+public class TestUtil {
     
     @Test
-    public void testBasic() throws Exception {
-        addData();
-        exporter.finishExporting();
-        
-        System.out.println(sw);
-        compareText("testBasic.txt", sw.toString());
+    public void testCheckForNotNull() throws Exception {
+        try {
+            Util.checkForNotNull(null, null);
+            fail("Expected a exception");
+        } catch (IllegalArgumentException e) {
+            //all is well
+        }
     }
 }

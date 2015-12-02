@@ -17,13 +17,12 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.xml;
+package org.efaps.dataexporter.output.xml;
 
+import org.efaps.dataexporter.DataExporterTestBase;
 import org.efaps.dataexporter.output.xml.XmlExportOptions;
 import org.efaps.dataexporter.output.xml.XmlExporter;
 import org.junit.Test;
-
-import com.brsanthu.dataexporter.DataExporterTestBase;
 
 public class XmlExporterTest extends DataExporterTestBase {
     

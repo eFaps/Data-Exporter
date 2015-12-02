@@ -17,28 +17,24 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.examples;
+package org.efaps.dataexporter.output.text;
 
-import java.io.StringWriter;
-
-import org.efaps.dataexporter.DataExporter;
+import org.efaps.dataexporter.DataExporterTestBase;
 import org.efaps.dataexporter.output.text.TextExporter;
+import org.junit.Test;
 
-public class DataExporterHelloWorld {
+public class TextExporterTest extends DataExporterTestBase {
     
-    public static void main(String[] args) {
-//        DataExporter exporter = new TextExporter();
-//        exporter.addColumn("Hello");
-//        exporter.addRow("World!");
-//        exporter.finishExporting();
-        
-        StringWriter sw = new StringWriter();
-        
-        DataExporter exporter = new TextExporter(sw);
-        exporter.addColumn("Hello");
-        exporter.addRow("World!");
+    public TextExporterTest() {
+        exporter = new TextExporter(sw);
+    }
+    
+    @Test
+    public void testBasic() throws Exception {
+        addData();
         exporter.finishExporting();
         
-        System.out.println(sw.toString());
+        System.out.println(sw);
+        compareText("testBasic.txt", sw.toString());
     }
 }

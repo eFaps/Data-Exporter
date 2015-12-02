@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.model;
+package org.efaps.dataexporter.model;
 
 import java.io.StringWriter;
 import java.text.NumberFormat;

@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter;
+package org.efaps.dataexporter;
 
 import java.io.IOException;
 import java.io.InputStream;

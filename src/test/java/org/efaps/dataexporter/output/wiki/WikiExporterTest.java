@@ -17,17 +17,16 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.text;
+package org.efaps.dataexporter.output.wiki;
 
-import org.efaps.dataexporter.output.text.TextExporter;
+import org.efaps.dataexporter.DataExporterTestBase;
+import org.efaps.dataexporter.output.wiki.WikiExporter;
 import org.junit.Test;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class TextExporterTest extends DataExporterTestBase {
+public class WikiExporterTest extends DataExporterTestBase {
     
-    public TextExporterTest() {
-        exporter = new TextExporter(sw);
+    public WikiExporterTest() {
+        exporter = new WikiExporter(sw);
     }
     
     @Test

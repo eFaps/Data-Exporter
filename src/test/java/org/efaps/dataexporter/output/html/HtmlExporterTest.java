@@ -17,8 +17,9 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.html;
+package org.efaps.dataexporter.output.html;
 
+import org.efaps.dataexporter.DataExporterTestBase;
 import org.efaps.dataexporter.model.AbstractDataExporterCallback;
 import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;
@@ -26,8 +27,6 @@ import org.efaps.dataexporter.model.DataExporterCallback;
 import org.efaps.dataexporter.model.StringColumn;
 import org.efaps.dataexporter.output.html.HtmlExporter;
 import org.junit.Test;
-
-import com.brsanthu.dataexporter.DataExporterTestBase;
 
 public class HtmlExporterTest extends DataExporterTestBase {
     

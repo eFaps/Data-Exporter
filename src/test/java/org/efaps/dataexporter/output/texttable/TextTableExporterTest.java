@@ -17,12 +17,13 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.texttable;
+package org.efaps.dataexporter.output.texttable;
 
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
 import org.efaps.dataexporter.DataExporter;
+import org.efaps.dataexporter.DataExporterTestBase;
 import org.efaps.dataexporter.model.AbstractDataExporterCallback;
 import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;
@@ -32,8 +33,6 @@ import org.efaps.dataexporter.output.texttable.TextTableExportOptions;
 import org.efaps.dataexporter.output.texttable.TextTableExportStyle;
 import org.efaps.dataexporter.output.texttable.TextTableExporter;
 import org.junit.Test;
-
-import com.brsanthu.dataexporter.DataExporterTestBase;
 
 public class TextTableExporterTest extends DataExporterTestBase {
 

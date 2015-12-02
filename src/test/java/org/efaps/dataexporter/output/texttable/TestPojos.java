@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.texttable;
+package org.efaps.dataexporter.output.texttable;
 
 import java.util.List;
 

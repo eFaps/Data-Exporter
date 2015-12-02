@@ -17,49 +17,41 @@
  * limitations under the License.
  * #L%
  */
-package com.brsanthu.dataexporter.output.json;
+package org.efaps.dataexporter.output.csv;
 
 import java.sql.Date;
 
-import org.efaps.dataexporter.model.json.JsonExporter;
+import org.efaps.dataexporter.DataExporterTestBase;
+import org.efaps.dataexporter.output.csv.CsvExportOptions;
+import org.efaps.dataexporter.output.csv.CsvExporter;
 import org.junit.Test;
 
-import com.brsanthu.dataexporter.DataExporterTestBase;
-
-public class JsonExporterTest extends DataExporterTestBase {
+public class CsvExporterTest extends DataExporterTestBase {
     
-    public JsonExporterTest() {
-        exporter = new JsonExporter(sw);
+    public CsvExporterTest() {
+        exporter = new CsvExporter(sw);
     }
     
     @Test
     public void testBasic() throws Exception {
         addData();
         exporter.addRow(new Date(dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(1), new Double(799.78));
+        exporter.addRow(new Date(dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(1), new Double(799.78));
         exporter.finishExporting();
         
         System.out.println(sw.toString());
         compareText("testBasic.txt", sw.toString());
     }
-    
+
     @Test
-    public void testFormatted() throws Exception {
-        ((JsonExporter) exporter).getJsonExportOptions().setPrettyPrint(true);
+    public void testStictQuoting() throws Exception {
+        ((CsvExportOptions) exporter.getOptions()).setStrictQuoting(true);
         addData();
         exporter.addRow(new Date(dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(1), new Double(799.78));
+        exporter.addRow(new Date(dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(1), new Double(799.78));
         exporter.finishExporting();
-        
+       
         System.out.println(sw.toString());
-        compareText("testFormatted.txt", sw.toString());
-    }
-    @Test
-    public void testFormattedDoubleEscape() throws Exception {
-        ((JsonExporter) exporter).getJsonExportOptions().setPrettyPrint(true).setDoubleEscape(true);
-        addData();
-        exporter.addRow(new Date(dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(1), new Double(799.78));
-        exporter.finishExporting();
-        
-        System.out.println(sw.toString());
-        compareText("testFormattedDoubleEscape.txt", sw.toString());
+        compareText("testStictQuoting.txt", sw.toString());
     }
 }
