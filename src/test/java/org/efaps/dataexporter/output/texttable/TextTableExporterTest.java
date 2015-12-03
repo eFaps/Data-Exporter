@@ -87,8 +87,6 @@ public class TextTableExporterTest
         ((TextTableExportOptions) this.exporter.getOptions()).setRepeatHeadersAfterRows(2);
         addData();
         this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
         compareText("testRepeatHeaders.txt", this.sw.toString());
     }
 
@@ -104,8 +102,6 @@ public class TextTableExporterTest
         ((TextTableExportOptions) this.exporter.getOptions()).setMinRowHeight(3);
         addData();
         this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
         compareText("testMinRows.txt", this.sw.toString());
     }
 
@@ -121,8 +117,6 @@ public class TextTableExporterTest
         ((TextTableExportOptions) this.exporter.getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
         addData();
         this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
         compareText("testHeaderAlignment.txt", this.sw.toString());
     }
 
