@@ -19,7 +19,10 @@
  */
 package org.efaps.dataexporter.output.html;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import java.io.StringWriter;
+
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.efaps.dataexporter.model.AbstractDataExporterCallback;
 import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;
@@ -27,43 +30,51 @@ import org.efaps.dataexporter.model.DataExporterCallback;
 import org.efaps.dataexporter.model.StringColumn;
 import org.testng.annotations.Test;
 
-public class HtmlExporterTest extends DataExporterTestBase {
+public class HtmlExporterTest
+    extends AbstractDataExporterTestBase
+{
 
-    public HtmlExporterTest() {
-        this.exporter = new HtmlExporter(this.sw);
+    @Override
+    protected DataExporter getNewDataExporter()
+    {
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new HtmlExporter(sw);
     }
 
     @Test
-    public void testFormatted() throws Exception {
-        ((HtmlExporter) this.exporter).getHtmlExportOptions().setPrettyPrint(true);
-        ((HtmlExporter) this.exporter).getHtmlExportOptions().setAlignCells(false);
+    public void testFormatted()
+        throws Exception
+    {
+        ((HtmlExporter) getDataExporter()).getHtmlExportOptions().setPrettyPrint(true);
+        ((HtmlExporter) getDataExporter()).getHtmlExportOptions().setAlignCells(false);
 
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println("Output of testFormatted===========================");
-        System.out.println(this.sw.toString());
-        compareText("testFormatted.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testFormatted.txt", getStringWriter().toString());
     }
 
     @Test
-    public void testBasic() throws Exception {
-        ((HtmlExporter) this.exporter).getHtmlExportOptions().setAlignCells(false);
+    public void testBasic()
+        throws Exception
+    {
+        ((HtmlExporter) getDataExporter()).getHtmlExportOptions().setAlignCells(false);
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println("Output of testBasic===========================");
-        System.out.println(this.sw.toString());
-        compareText("testBasic.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 
     @Test
-    public void testAlignment() throws Exception {
+    public void testAlignment()
+        throws Exception
+    {
 
-        final DataExporterCallback callback = new AbstractDataExporterCallback() {
+        final DataExporterCallback callback = new AbstractDataExporterCallback()
+        {
 
             @Override
-            public void beforeCell(final CellDetails cellDetails) {
+            public void beforeCell(final CellDetails cellDetails)
+            {
                 final int row = cellDetails.getRowIndex();
                 final int column = cellDetails.getColumnIndex();
 
@@ -92,21 +103,17 @@ public class HtmlExporterTest extends DataExporterTestBase {
             }
         };
 
-        final HtmlExporter exporter = new HtmlExporter(this.sw);
+        final HtmlExporter exporter = new HtmlExporter(getStringWriter());
         exporter.getHtmlExportOptions().setPrettyPrint(true);
         exporter.setCallback(callback);
-        exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn(
-                        "LEFT", 15), new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
+        exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn("LEFT", 15),
+                        new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
 
         final String data = "This is alignment test with some reallyreallybig words";
         exporter.addRow("TOP", data, data, data);
         exporter.addRow("MIDDLE", data, data, data);
         exporter.addRow("BOTTOM", data, data, data);
         exporter.finishExporting();
-
-        System.out.println("Output of testAlignment===========================");
-        System.out.println(this.sw.toString());
-
-        compareText("testAlignment.txt", this.sw.toString());
+        compareText("testAlignment.txt", getStringWriter().toString());
     }
 }

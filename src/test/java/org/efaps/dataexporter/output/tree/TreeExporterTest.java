@@ -19,20 +19,29 @@
  */
 package org.efaps.dataexporter.output.tree;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import java.io.StringWriter;
+
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.efaps.dataexporter.model.Row;
 import org.testng.annotations.Test;
 
 public class TreeExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
+
+    @Override
+    protected DataExporter getNewDataExporter()
+    {
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new TreeExporter(sw);
+    }
 
     @Test
     public void testClassic()
         throws Exception
     {
-
-        final TreeExporter exporter = new TreeExporter(this.sw);
 
         final Row level1node1 = new Row("Level 1 Node 1");
         final Row level2node1 = new Row("Level 2 Node 1");
@@ -72,11 +81,11 @@ public class TreeExporterTest
         level2node2.addChild(level4node4);
         level2node2.addChild(level4node5);
 
-        exporter.getTreeExporterOptions().setStyle(TreeExportStyle.CLASSIC);
-        exporter.addRows(level1node1);
-        exporter.finishExporting();
+        ((TreeExporter) getDataExporter()).getTreeExporterOptions().setStyle(TreeExportStyle.CLASSIC);
+        getDataExporter().addRows(level1node1);
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
+        System.out.println(getStringWriter().toString());
         // compareText("testHeaderAlignment.txt", sw.toString());
     }
 }

@@ -19,19 +19,24 @@
  */
 package org.efaps.dataexporter.output.json;
 
+import java.io.StringWriter;
 import java.sql.Date;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.efaps.dataexporter.model.json.JsonExporter;
 import org.testng.annotations.Test;
 
 public class JsonExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
 
-    public JsonExporterTest()
+    @Override
+    protected DataExporter getNewDataExporter()
     {
-        this.exporter = new JsonExporter(this.sw);
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new JsonExporter(sw);
     }
 
     @Test
@@ -39,39 +44,36 @@ public class JsonExporterTest
         throws Exception
     {
         addData();
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
-        this.exporter.finishExporting();
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
-        compareText("testBasic.txt", this.sw.toString());
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 
     @Test
     public void testFormatted()
         throws Exception
     {
-        ((JsonExporter) this.exporter).getJsonExportOptions().setPrettyPrint(true);
+        ((JsonExporter) getDataExporter()).getJsonExportOptions().setPrettyPrint(true);
         addData();
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
-        this.exporter.finishExporting();
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
-        compareText("testFormatted.txt", this.sw.toString());
+        compareText("testFormatted.txt", getStringWriter().toString());
     }
 
     @Test
     public void testFormattedDoubleEscape()
         throws Exception
     {
-        ((JsonExporter) this.exporter).getJsonExportOptions().setPrettyPrint(true).setDoubleEscape(true);
+        ((JsonExporter) getDataExporter()).getJsonExportOptions().setPrettyPrint(true).setDoubleEscape(true);
         addData();
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
-        this.exporter.finishExporting();
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
-        compareText("testFormattedDoubleEscape.txt", this.sw.toString());
+        compareText("testFormattedDoubleEscape.txt", getStringWriter().toString());
     }
 }

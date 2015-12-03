@@ -19,48 +19,52 @@
  */
 package org.efaps.dataexporter.output.csv;
 
+import java.io.StringWriter;
 import java.sql.Date;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.testng.annotations.Test;
 
 public class CsvExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
-
-    public CsvExporterTest()
-    {
-        this.exporter = new CsvExporter(this.sw);
-    }
 
     @Test
     public void testBasic()
         throws Exception
     {
         addData();
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
-                        1), new Double(799.78));
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
-                        1), new Double(799.78));
-        this.exporter.finishExporting();
 
-        System.out.println(this.sw.toString());
-        compareText("testBasic.txt", this.sw.toString());
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
+                        1), new Double(799.78));
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
+                        1), new Double(799.78));
+        getDataExporter().finishExporting();
+
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 
     @Test
     public void testStictQuoting()
         throws Exception
     {
-        ((CsvExportOptions) this.exporter.getOptions()).setStrictQuoting(true);
+        ((CsvExportOptions) getDataExporter().getOptions()).setStrictQuoting(true);
         addData();
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
                         1), new Double(799.78));
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
+        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
                         1), new Double(799.78));
-        this.exporter.finishExporting();
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
-        compareText("testStictQuoting.txt", this.sw.toString());
+        compareText("testStictQuoting.txt", getStringWriter().toString());
+    }
+
+    @Override
+    protected DataExporter getNewDataExporter()
+    {
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new CsvExporter(sw);
     }
 }

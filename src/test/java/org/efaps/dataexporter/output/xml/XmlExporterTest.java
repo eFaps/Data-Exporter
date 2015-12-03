@@ -19,16 +19,22 @@
  */
 package org.efaps.dataexporter.output.xml;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import java.io.StringWriter;
+
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.testng.annotations.Test;
 
 public class XmlExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
 
-    public XmlExporterTest()
+    @Override
+    protected DataExporter getNewDataExporter()
     {
-        this.exporter = new XmlExporter(this.sw);
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new XmlExporter(sw);
     }
 
     @Test
@@ -36,21 +42,17 @@ public class XmlExporterTest
         throws Exception
     {
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
-        compareText("testBasic.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 
     @Test
     public void testFormatted()
         throws Exception
     {
-        ((XmlExportOptions) this.exporter.getOptions()).setPrettyPrint(true);
+        ((XmlExportOptions) getDataExporter().getOptions()).setPrettyPrint(true);
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
-        compareText("testFormatted.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testFormatted.txt", getStringWriter().toString());
     }
 }

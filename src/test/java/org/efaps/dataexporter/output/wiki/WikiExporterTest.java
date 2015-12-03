@@ -19,16 +19,22 @@
  */
 package org.efaps.dataexporter.output.wiki;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import java.io.StringWriter;
+
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.testng.annotations.Test;
 
 public class WikiExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
 
-    public WikiExporterTest()
+    @Override
+    protected DataExporter getNewDataExporter()
     {
-        this.exporter = new WikiExporter(this.sw);
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new WikiExporter(sw);
     }
 
     @Test
@@ -36,9 +42,7 @@ public class WikiExporterTest
         throws Exception
     {
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println(this.sw);
-        compareText("testBasic.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 }

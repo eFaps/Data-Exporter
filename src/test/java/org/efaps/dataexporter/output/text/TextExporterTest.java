@@ -19,7 +19,10 @@
  */
 package org.efaps.dataexporter.output.text;
 
-import org.efaps.dataexporter.DataExporterTestBase;
+import java.io.StringWriter;
+
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
+import org.efaps.dataexporter.DataExporter;
 import org.testng.annotations.Test;
 
 /**
@@ -28,15 +31,14 @@ import org.testng.annotations.Test;
  * @author The eFaps Team
  */
 public class TextExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
-
-    /**
-     * Instantiates a new text exporter test.
-     */
-    public TextExporterTest()
+    @Override
+    protected DataExporter getNewDataExporter()
     {
-        this.exporter = new TextExporter(this.sw);
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new TextExporter(sw);
     }
 
     /**
@@ -49,9 +51,7 @@ public class TextExporterTest
         throws Exception
     {
         addData();
-        this.exporter.finishExporting();
-
-        System.out.println(this.sw);
-        compareText("testBasic.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testBasic.txt", getStringWriter().toString());
     }
 }

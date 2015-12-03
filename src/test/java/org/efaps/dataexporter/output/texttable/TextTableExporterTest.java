@@ -20,8 +20,8 @@ package org.efaps.dataexporter.output.texttable;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
+import org.efaps.dataexporter.AbstractDataExporterTestBase;
 import org.efaps.dataexporter.DataExporter;
-import org.efaps.dataexporter.DataExporterTestBase;
 import org.efaps.dataexporter.model.AbstractDataExporterCallback;
 import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;
@@ -35,15 +35,15 @@ import org.testng.annotations.Test;
  * @author The eFaps Team
  */
 public class TextTableExporterTest
-    extends DataExporterTestBase
+    extends AbstractDataExporterTestBase
 {
 
-    /**
-     * Instantiates a new text table exporter test.
-     */
-    public TextTableExporterTest()
+    @Override
+    protected DataExporter getNewDataExporter()
     {
-        this.exporter = new TextTableExporter(this.sw);
+        final StringWriter sw = new StringWriter();
+        setStringWriter(sw);
+        return new TextTableExporter(sw);
     }
 
     /**
@@ -56,8 +56,8 @@ public class TextTableExporterTest
         throws Exception
     {
         addData();
-        this.exporter.finishExporting();
-        compareText("testDefaultFormat.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testDefaultFormat.txt", getStringWriter().toString());
     }
 
     /**
@@ -70,9 +70,9 @@ public class TextTableExporterTest
         throws Exception
     {
         addDataBeans();
-        this.exporter.finishExporting();
+        getDataExporter().finishExporting();
 
-        System.out.println(this.sw.toString());
+        System.out.println(getStringWriter().toString());
     }
 
     /**
@@ -84,10 +84,10 @@ public class TextTableExporterTest
     public void testRepeatHeaders()
         throws Exception
     {
-        ((TextTableExportOptions) this.exporter.getOptions()).setRepeatHeadersAfterRows(2);
+        ((TextTableExportOptions) getDataExporter().getOptions()).setRepeatHeadersAfterRows(2);
         addData();
-        this.exporter.finishExporting();
-        compareText("testRepeatHeaders.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testRepeatHeaders.txt", getStringWriter().toString());
     }
 
     /**
@@ -99,10 +99,10 @@ public class TextTableExporterTest
     public void testMinRows()
         throws Exception
     {
-        ((TextTableExportOptions) this.exporter.getOptions()).setMinRowHeight(3);
+        ((TextTableExportOptions) getDataExporter().getOptions()).setMinRowHeight(3);
         addData();
-        this.exporter.finishExporting();
-        compareText("testMinRows.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testMinRows.txt", getStringWriter().toString());
     }
 
     /**
@@ -114,10 +114,10 @@ public class TextTableExporterTest
     public void testHeaderAlignment()
         throws Exception
     {
-        ((TextTableExportOptions) this.exporter.getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
+        ((TextTableExportOptions) getDataExporter().getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
         addData();
-        this.exporter.finishExporting();
-        compareText("testHeaderAlignment.txt", this.sw.toString());
+        getDataExporter().finishExporting();
+        compareText("testHeaderAlignment.txt", getStringWriter().toString());
     }
 
     /**
@@ -163,7 +163,7 @@ public class TextTableExporterTest
             }
         };
 
-        final TextTableExporter exporter = new TextTableExporter(this.sw);
+        final TextTableExporter exporter = new TextTableExporter(getStringWriter());
         exporter.setCallback(callback);
         exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn("LEFT", 15),
                         new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
@@ -175,9 +175,9 @@ public class TextTableExporterTest
         exporter.addRow("BOTTOM", data, data, data);
         exporter.finishExporting();
 
-        System.out.println(this.sw.toString());
+        System.out.println(getStringWriter().toString());
 
-        compareText("testAlignment.txt", this.sw.toString());
+        compareText("testAlignment.txt", getStringWriter().toString());
     }
 
     /**
@@ -192,16 +192,11 @@ public class TextTableExporterTest
         final Field[] fields = TextTableExportStyle.class.getFields();
         for (final Field field : fields) {
             if (field.getType().getName().equals(TextTableExportStyle.class.getName())) {
-
-                System.out.println("");
-                System.out.println("<h2>" + field.getName() + "</h2><pre>");
-                this.exporter = new TextTableExporter();
-                this.exporter.getOptions().setEscapeHtml(true);
-                ((TextTableExportOptions) this.exporter.getOptions()).setStyle((TextTableExportStyle) field.get(null));
+                getDataExporter().getOptions().setEscapeHtml(true);
+                ((TextTableExportOptions) getDataExporter().getOptions()).setStyle((TextTableExportStyle) field.get(null));
                 setup();
                 addData();
-                this.exporter.finishExporting();
-                System.out.println("</pre>");
+                getDataExporter().finishExporting();
             }
         }
     }

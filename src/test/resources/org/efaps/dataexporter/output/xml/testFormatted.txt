@@ -2,7 +2,7 @@
 <table>
 	<row>
 		<column name="Line No">1</column>
-		<column name="Date Purchased">2011/04/21 11:34:40 AM</column>
+		<column name="Date Purchased">2011/04/21 01:34:40 PM</column>
 		<column name="Item No">1</column>
 		<column name="Item Name">Laptop</column>
 		<column name="Shipped?">No</column>
@@ -12,7 +12,7 @@
 	</row>
 	<row>
 		<column name="Line No">2</column>
-		<column name="Date Purchased">2011/04/18 07:47:16 PM</column>
+		<column name="Date Purchased">2011/04/18 09:47:16 PM</column>
 		<column name="Item No">2</column>
 		<column name="Item Name">Mouse</column>
 		<column name="Shipped?">Yes</column>
@@ -22,7 +22,7 @@
 	</row>
 	<row>
 		<column name="Line No">3</column>
-		<column name="Date Purchased">2011/04/18 07:13:14 PM</column>
+		<column name="Date Purchased">2011/04/18 09:13:14 PM</column>
 		<column name="Item No">3</column>
 		<column name="Item Name">Keyboard</column>
 		<column name="Shipped?">No</column>
