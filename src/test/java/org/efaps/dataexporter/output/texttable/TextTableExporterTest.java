@@ -1,22 +1,20 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2015 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
+
 package org.efaps.dataexporter.output.texttable;
 
 import java.io.StringWriter;
@@ -31,31 +29,61 @@ import org.efaps.dataexporter.model.DataExporterCallback;
 import org.efaps.dataexporter.model.StringColumn;
 import org.testng.annotations.Test;
 
-public class TextTableExporterTest extends DataExporterTestBase {
+/**
+ * The Class TextTableExporterTest.
+ *
+ * @author The eFaps Team
+ */
+public class TextTableExporterTest
+    extends DataExporterTestBase
+{
 
-    public TextTableExporterTest() {
+    /**
+     * Instantiates a new text table exporter test.
+     */
+    public TextTableExporterTest()
+    {
         this.exporter = new TextTableExporter(this.sw);
     }
 
+    /**
+     * Test default format.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testDefaultFormat() throws Exception {
+    public void testDefaultFormat()
+        throws Exception
+    {
         addData();
         this.exporter.finishExporting();
-
-        System.out.println(this.sw.toString());
         compareText("testDefaultFormat.txt", this.sw.toString());
     }
 
+    /**
+     * Test bean rows.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testBeanRows() throws Exception {
+    public void testBeanRows()
+        throws Exception
+    {
         addDataBeans();
         this.exporter.finishExporting();
 
         System.out.println(this.sw.toString());
     }
 
+    /**
+     * Test repeat headers.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testRepeatHeaders() throws Exception {
+    public void testRepeatHeaders()
+        throws Exception
+    {
         ((TextTableExportOptions) this.exporter.getOptions()).setRepeatHeadersAfterRows(2);
         addData();
         this.exporter.finishExporting();
@@ -64,8 +92,15 @@ public class TextTableExporterTest extends DataExporterTestBase {
         compareText("testRepeatHeaders.txt", this.sw.toString());
     }
 
+    /**
+     * Test min rows.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testMinRows() throws Exception {
+    public void testMinRows()
+        throws Exception
+    {
         ((TextTableExportOptions) this.exporter.getOptions()).setMinRowHeight(3);
         addData();
         this.exporter.finishExporting();
@@ -74,8 +109,15 @@ public class TextTableExporterTest extends DataExporterTestBase {
         compareText("testMinRows.txt", this.sw.toString());
     }
 
+    /**
+     * Test header alignment.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testHeaderAlignment() throws Exception {
+    public void testHeaderAlignment()
+        throws Exception
+    {
         ((TextTableExportOptions) this.exporter.getOptions()).setHeaderAlignment(AlignType.MIDDLE_LEFT);
         addData();
         this.exporter.finishExporting();
@@ -84,12 +126,21 @@ public class TextTableExporterTest extends DataExporterTestBase {
         compareText("testHeaderAlignment.txt", this.sw.toString());
     }
 
+    /**
+     * Test alignment.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testAlignment() throws Exception {
-        final DataExporterCallback callback = new AbstractDataExporterCallback() {
+    public void testAlignment()
+        throws Exception
+    {
+        final DataExporterCallback callback = new AbstractDataExporterCallback()
+        {
 
             @Override
-            public void beforeCell(final CellDetails cellDetails) {
+            public void beforeCell(final CellDetails cellDetails)
+            {
                 final int row = cellDetails.getRowIndex();
                 final int column = cellDetails.getColumnIndex();
 
@@ -120,8 +171,8 @@ public class TextTableExporterTest extends DataExporterTestBase {
 
         final TextTableExporter exporter = new TextTableExporter(this.sw);
         exporter.setCallback(callback);
-        exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn(
-                        "LEFT", 15), new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
+        exporter.addColumns(new StringColumn("", 15, AlignType.MIDDLE_CENTER), new StringColumn("LEFT", 15),
+                        new StringColumn("CENTER", 15), new StringColumn("RIGHT", 15));
         exporter.getTextTableExportOptions().setMinRowHeight(8);
 
         final String data = "This is alignment test with some reallyreallybig words";
@@ -135,8 +186,15 @@ public class TextTableExporterTest extends DataExporterTestBase {
         compareText("testAlignment.txt", this.sw.toString());
     }
 
+    /**
+     * Test print styles.
+     *
+     * @throws Exception the exception
+     */
     @Test
-    public void testPrintStyles() throws Exception {
+    public void testPrintStyles()
+        throws Exception
+    {
         final Field[] fields = TextTableExportStyle.class.getFields();
         for (final Field field : fields) {
             if (field.getType().getName().equals(TextTableExportStyle.class.getName())) {
@@ -156,12 +214,16 @@ public class TextTableExporterTest extends DataExporterTestBase {
 
     /**
      * This is the test case for github issue#1.
+     *
+     * @throws Exception the exception
      */
     @Test
-    public void testtIssue1() throws Exception {
-
-        //Essentially if data fits into the cell, whatever the alignment you give, it shoudln't matter
-        //should produce same result.
+    public void testtIssue1()
+        throws Exception
+    {
+        // Essentially if data fits into the cell, whatever the alignment you
+        // give, it shoudln't matter
+        // should produce same result.
         for (final AlignType alignType : AlignType.values()) {
 
             final StringWriter sw = new StringWriter();
