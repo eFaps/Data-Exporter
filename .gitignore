@@ -1,3 +1,6 @@
 target
 bin
 META-INF
+/test-output/
+/.settings/
+.classpath
