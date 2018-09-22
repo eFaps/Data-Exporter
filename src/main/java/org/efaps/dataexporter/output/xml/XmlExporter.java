@@ -1,21 +1,18 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter.output.xml;
 
@@ -26,6 +23,7 @@ import org.efaps.dataexporter.DataExporter;
 
 /**
  * Data exporter which exports to XML format. Sample format is as follows.
+ *
  * <pre>
  * &lt;?xml version="1.0" encoding="UTF-8"?&gt;
  * &lt;table&gt;
@@ -61,71 +59,88 @@ import org.efaps.dataexporter.DataExporter;
  *         &lt;/row&gt;
  * &lt;/table&gt;
  * </pre>
- * 
+ *
  * @author Santhosh Kumar
  */
-public class XmlExporter extends DataExporter {
+public class XmlExporter
+    extends DataExporter
+{
 
     /**
-     * Creates exporter with given output stream and default {@link XmlExportOptions}
-     * 
-     * @param out the output stream to write the output to. Cannot be <code>null</code>
+     * Creates exporter with given output stream and default
+     * {@link XmlExportOptions}
+     *
+     * @param out the output stream to write the output to. Cannot be
+     *            <code>null</code>
      */
-    public XmlExporter(OutputStream out) {
+    public XmlExporter(final OutputStream out)
+    {
         this(new XmlExportOptions(), out);
     }
-    
+
     /**
      * Creates exporter with given options and output stream.
-     * 
+     *
      * @param options the Xml export options. Cannot be <code>null</code>
-     * @param out the output stream to write the output to. Cannot be <code>null</code>
+     * @param out the output stream to write the output to. Cannot be
+     *            <code>null</code>
      */
-    public XmlExporter(XmlExportOptions options, OutputStream out) {
+    public XmlExporter(final XmlExportOptions options,
+                       final OutputStream out)
+    {
         super(new XmlWriter(options, out));
     }
-    
+
     /**
      * Creates exporter with default {@link XmlExportOptions} and given writer.
-     * 
+     *
      * @param out the writer to write the output to. Cannot be <code>null</code>
      */
-    public XmlExporter(Writer out) {
+    public XmlExporter(final Writer out)
+    {
         this(new XmlExportOptions(), out);
     }
 
     /**
      * Creates exporter with given options and given writer.
-     * 
+     *
      * @param options the xml export options. Cannot be <code>null</code>
      * @param out the writer to write the output to. Cannot be <code>null</code>
      */
-    public XmlExporter(XmlExportOptions options, Writer out) {
+    public XmlExporter(final XmlExportOptions options,
+                       final Writer out)
+    {
         super(new XmlWriter(options, out));
     }
-    
+
     /**
-     * Creates exporter with default {@link XmlExportOptions} and <code>System.out</code> output stream.
+     * Creates exporter with default {@link XmlExportOptions} and
+     * <code>System.out</code> output stream.
      */
-    public XmlExporter() {
+    public XmlExporter()
+    {
         this(System.out);
     }
-    
+
     /**
-     * Creates exporter with given options and <code>System.out</code> output stream.
-     * 
-     * @param options the options to use for exporting. Cannot be <code>null</code>.
+     * Creates exporter with given options and <code>System.out</code> output
+     * stream.
+     *
+     * @param options the options to use for exporting. Cannot be
+     *            <code>null</code>.
      */
-    public XmlExporter(XmlExportOptions options) {
+    public XmlExporter(final XmlExportOptions options)
+    {
         this(options, System.out);
     }
-    
+
     /**
      * Returns the currently active xml export options.
-     * 
+     *
      * @return the xml export options.
      */
-    public XmlExportOptions getXmlExportOptions() {
+    public XmlExportOptions getXmlExportOptions()
+    {
         return (XmlExportOptions) getOptions();
     }
 }

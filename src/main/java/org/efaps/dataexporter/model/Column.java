@@ -1,21 +1,18 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter.model;
 
@@ -24,14 +21,17 @@ import java.util.List;
 import org.efaps.dataexporter.TextAligner;
 
 /**
- * Base class for all other columns. This abstract class also provides some common functionality
+ * Base class for all other columns. This abstract class also provides some
+ * common functionality
  * which subclasses can make use of.
- * 
+ *
  * @author Santhosh Kumar
  */
-public abstract class Column {
+public abstract class Column
+{
+
     public static TextAligner aligner = new TextAligner();
-    
+
     private CellValueGenerator cellValueGenerator = null;
     private String title = null;
     private String title2 = "";
@@ -49,226 +49,288 @@ public abstract class Column {
     protected String rowCellCssId = null;
     protected String rowCellCssStyle = null;
 
-    
-    public Column(String name) {
+    public Column(final String name)
+    {
         this(name, name.length());
     }
 
-    public Column(String name, int width) {
+    public Column(final String name,
+                  final int width)
+    {
         this(name, null, width, AlignType.MIDDLE_LEFT);
     }
 
-    public Column(String name, int width, AlignType align) {
+    public Column(final String name,
+                  final int width,
+                  final AlignType align)
+    {
         this(name, null, width, align);
     }
 
-    public Column(String name, String title, int width, AlignType align) {
+    public Column(final String name,
+                  final String title,
+                  final int width,
+                  final AlignType align)
+    {
         super();
-        this.title = title==null?name:title;
+        this.title = title == null ? name : title;
         this.name = name;
         this.width = width;
         this.align = align;
     }
-    
-    public CellValueGenerator getCellValueGenerator() {
-        return cellValueGenerator;
+
+    public CellValueGenerator getCellValueGenerator()
+    {
+        return this.cellValueGenerator;
     }
 
-    public Column setCellValueGenerator(CellValueGenerator generator) {
+    public Column setCellValueGenerator(final CellValueGenerator generator)
+    {
         this.cellValueGenerator = generator;
         return this;
     }
 
-    public boolean isGeneratesOwnData() {
-        return generatesOwnData;
+    public boolean isGeneratesOwnData()
+    {
+        return this.generatesOwnData;
     }
 
-    public Column setGeneratesOwnData(boolean generatesOwnData) {
+    public Column setGeneratesOwnData(final boolean generatesOwnData)
+    {
         this.generatesOwnData = generatesOwnData;
         return this;
     }
-    
-    public String getTitle() {
-        return title;
+
+    public String getTitle()
+    {
+        return this.title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title)
+    {
         this.title = title;
     }
 
-    public String getTitle2() {
-        return title2;
+    public String getTitle2()
+    {
+        return this.title2;
     }
 
-    public void setTitle2(String title2) {
+    public void setTitle2(final String title2)
+    {
         this.title2 = title2;
     }
 
-    public String getTitle3() {
-        return title3;
+    public String getTitle3()
+    {
+        return this.title3;
     }
 
-    public void setTitle3(String title3) {
+    public void setTitle3(final String title3)
+    {
         this.title3 = title3;
     }
 
-    public String getName() {
-        return name;
+    public String getName()
+    {
+        return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name)
+    {
         this.name = name;
     }
 
-    public int getWidth() {
-        return width;
+    public int getWidth()
+    {
+        return this.width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(final int width)
+    {
         this.width = width;
     }
 
-    public AlignType getAlign() {
-        return align;
+    public AlignType getAlign()
+    {
+        return this.align;
     }
 
-    public void setAlign(AlignType align) {
+    public void setAlign(final AlignType align)
+    {
         this.align = align;
     }
 
-    public String getHeaderCellCssClass() {
-        return headerCellCssClass;
+    public String getHeaderCellCssClass()
+    {
+        return this.headerCellCssClass;
     }
 
-    public void setHeaderCellCssClass(String headerCellCssClass) {
+    public void setHeaderCellCssClass(final String headerCellCssClass)
+    {
         this.headerCellCssClass = headerCellCssClass;
     }
 
-    public String getHeaderCellCssId() {
-        return headerCellCssId;
+    public String getHeaderCellCssId()
+    {
+        return this.headerCellCssId;
     }
 
-    public void setHeaderCellCssId(String headerCellCssId) {
+    public void setHeaderCellCssId(final String headerCellCssId)
+    {
         this.headerCellCssId = headerCellCssId;
     }
 
-    public String getHeaderCellCssStyle() {
-        return headerCellCssStyle;
+    public String getHeaderCellCssStyle()
+    {
+        return this.headerCellCssStyle;
     }
 
-    public void setHeaderCellCssStyle(String headerCellCssStyle) {
+    public void setHeaderCellCssStyle(final String headerCellCssStyle)
+    {
         this.headerCellCssStyle = headerCellCssStyle;
     }
 
-    public String getRowCellCssClass() {
-        return rowCellCssClass;
+    public String getRowCellCssClass()
+    {
+        return this.rowCellCssClass;
     }
 
-    public void setRowCellCssClass(String rowCellCssClass) {
+    public void setRowCellCssClass(final String rowCellCssClass)
+    {
         this.rowCellCssClass = rowCellCssClass;
     }
 
-    public String getRowCellCssId() {
-        return rowCellCssId;
+    public String getRowCellCssId()
+    {
+        return this.rowCellCssId;
     }
 
-    public void setRowCellCssId(String rowCellCssId) {
+    public void setRowCellCssId(final String rowCellCssId)
+    {
         this.rowCellCssId = rowCellCssId;
     }
 
-    public String getRowCellCssStyle() {
-        return rowCellCssStyle;
+    public String getRowCellCssStyle()
+    {
+        return this.rowCellCssStyle;
     }
 
-    public void setRowCellCssStyle(String rowCellCssStyle) {
+    public void setRowCellCssStyle(final String rowCellCssStyle)
+    {
         this.rowCellCssStyle = rowCellCssStyle;
     }
 
-    public boolean isNillable() {
-        return nillable;
+    public boolean isNillable()
+    {
+        return this.nillable;
     }
 
-    public void setNillable(boolean nillable) {
+    public void setNillable(final boolean nillable)
+    {
         this.nillable = nillable;
     }
-    
+
     /**
-     * Aligns the given <code>cellData</code> using the details given in <code>cellDetails</code>
+     * Aligns the given <code>cellData</code> using the details given in
+     * <code>cellDetails</code>
      * and alignment override value returned by the call back (if there is one).
      * <p>
-     * This method is usually called by the specific column implementation after they have formatted
+     * This method is usually called by the specific column implementation after
+     * they have formatted
      * the string.
-     * 
+     *
      * @param cellDetails the object containing the details about this cell
      * @param cellData the string which should be aligned
-     * 
-     * @return the <code>ArrayList</code> containing the Strings split and aligned as per <code>cellDetails</code>
+     *
+     * @return the <code>ArrayList</code> containing the Strings split and
+     *         aligned as per <code>cellDetails</code>
      */
-    public List<String> align(CellDetails cellDetails, String cellData) {
-    	return align(cellDetails, cellData, " ");
+    public List<String> align(final CellDetails cellDetails, final String cellData)
+    {
+        return align(cellDetails, cellData, " ");
     }
-    	
-    public List<String> align(CellDetails cellDetails, String cellData, String filler) {
-        
+
+    public List<String> align(final CellDetails cellDetails, final String cellData, final String filler)
+    {
+
         AlignType alignOverride = cellDetails.getCellAlign();
-        
+
         if (alignOverride == null) {
             alignOverride = cellDetails.getColumn().getAlign();
         }
-        
+
         return align(cellDetails.getColumn().getWidth(), cellDetails.getRowHeight(), alignOverride, cellData, filler);
     }
 
-    public static List<String> align(int width, int height, AlignType align, String value) {
-    	return align(width, height, align, value, " ");
+    public static List<String> align(final int width, final int height, final AlignType align, final String value)
+    {
+        return align(width, height, align, value, " ");
     }
 
-    public static List<String> align(int width, int height, AlignType align, String value, String filler) {
+    public static List<String> align(final int width, final int height, final AlignType align, final String value,
+                                     final String filler)
+    {
         return aligner.align(width, height, align, value, filler);
     }
-    
+
     /**
-     * Method calculates the approximate row height based on the given <code>data</code> length
-     * and this column's width. It is only a approximation because once the data is split and aligned
-     * some times it could have been rendered in less height than what is returned in this method.
-     * 
-     * @param cellData the formatted string which would get displayed in the cell.
-     * 
-     * @return the approximation height that is required to display this cellData in this column
+     * Method calculates the approximate row height based on the given
+     * <code>data</code> length
+     * and this column's width. It is only a approximation because once the data
+     * is split and aligned
+     * some times it could have been rendered in less height than what is
+     * returned in this method.
+     *
+     * @param cellData the formatted string which would get displayed in the
+     *            cell.
+     *
+     * @return the approximation height that is required to display this
+     *         cellData in this column
      */
-    public int getMaxRowHeight(String cellData) {
+    public int getMaxRowHeight(final String cellData)
+    {
         return getMaxRowHeight(getWidth(), cellData);
     }
-    
-    public static int getMaxRowHeight(int width, String value) {
+
+    public static int getMaxRowHeight(int width, final String value)
+    {
         if (width <= 0) {
             width = 1;
         }
-        
-        return (int) Math.ceil((float) value.length()/width);
+
+        return (int) Math.ceil((float) value.length() / width);
     }
-    
+
     /**
-     * Implementation should calculate the maximum row height they would be needed to render
-     * the <code>defaultCellValue</code> given in <code>cellDetails</code> parameter.
-     * 
+     * Implementation should calculate the maximum row height they would be
+     * needed to render
+     * the <code>defaultCellValue</code> given in <code>cellDetails</code>
+     * parameter.
+     *
      * @param cellDetails the object containing the details about the cell
-     * 
-     * @return the positive integer specifying the minimum row height this cell needs to render
-     *      the cell value.
+     *
+     * @return the positive integer specifying the minimum row height this cell
+     *         needs to render
+     *         the cell value.
      */
     public abstract int getMaxRowHeight(CellDetails cellDetails);
-    
+
     /**
-     * Implementation should format the cell value object as appropriate into a string, align
-     * the string vertically/horizontally to fit with in the column width and row height. Allowed column 
-     * width is specified via <code>cellDetails.getColumn().getWidth()</code>. Allowed row height
+     * Implementation should format the cell value object as appropriate into a
+     * string, align
+     * the string vertically/horizontally to fit with in the column width and
+     * row height. Allowed column
+     * width is specified via <code>cellDetails.getColumn().getWidth()</code>.
+     * Allowed row height
      * is provided via <code>cellDetails.getRowHeight()</code>
-     * 
+     *
      * @param cellDetails
-     * 
-     * @return List of Strings to be rendered for this column. List should have exactly 
-     *  <code>cellDetails.getRowHeight()</code> strings and each of size <code>cellDetails.getColumn().getWidth()</code>
+     *
+     * @return List of Strings to be rendered for this column. List should have
+     *         exactly
+     *         <code>cellDetails.getRowHeight()</code> strings and each of size
+     *         <code>cellDetails.getColumn().getWidth()</code>
      */
     public abstract String format(CellDetails cellDetails);
 }

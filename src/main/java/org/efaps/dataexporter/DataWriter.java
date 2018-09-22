@@ -1,21 +1,18 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter;
 
@@ -39,15 +36,18 @@ import org.efaps.dataexporter.model.Table;
 import org.efaps.dataexporter.util.Util;
 
 /**
- * Workhorse of the library, which coordinates and exports the header, rows and footer as
- * appropriate. This method has list of abstract classes, so called hooks, which subclasses
+ * Workhorse of the library, which coordinates and exports the header, rows and
+ * footer as
+ * appropriate. This method has list of abstract classes, so called hooks, which
+ * subclasses
  * can make use to write the data at appropriate time.
  * <p>
  * Subclasses must extend {@link AbstractDataWriter} instead of this class.
  *
  * @author Santhosh Kumar
  */
-public abstract class DataWriter {
+public abstract class DataWriter
+{
 
     protected ExportOptions options = null;
     private PrintWriter out = null;
@@ -57,20 +57,28 @@ public abstract class DataWriter {
     /**
      * Initializes DataWriter with given export options and output stream
      *
-     * @param options the options to use during exporting. Cannot be <code>null</code>.
-     * @param out the output stream to write the data to. Cannot be <code>null</code>.
+     * @param options the options to use during exporting. Cannot be
+     *            <code>null</code>.
+     * @param out the output stream to write the data to. Cannot be
+     *            <code>null</code>.
      */
-    public DataWriter(final ExportOptions options, final OutputStream out) {
+    public DataWriter(final ExportOptions options,
+                      final OutputStream out)
+    {
         this(options, new OutputStreamWriter(out));
     }
 
     /**
      * Initializes the datawriter with given export options and writer.
      *
-     * @param options the options to use during exporting. Cannot be <code>null</code>.
-     * @param out the output writer to write the data to. Cannot be <code>null</code>.
+     * @param options the options to use during exporting. Cannot be
+     *            <code>null</code>.
+     * @param out the output writer to write the data to. Cannot be
+     *            <code>null</code>.
      */
-    public DataWriter(final ExportOptions options, final Writer out) {
+    public DataWriter(final ExportOptions options,
+                      final Writer out)
+    {
         Util.checkForNotNull(out, "out");
         Util.checkForNotNull(options, "options");
 
@@ -78,7 +86,8 @@ public abstract class DataWriter {
         this.out = new PrintWriter(out);
     }
 
-    public void setOutputStream(final PrintWriter out) {
+    public void setOutputStream(final PrintWriter out)
+    {
         this.out = out;
     }
 
@@ -87,7 +96,8 @@ public abstract class DataWriter {
      *
      * @return the current options
      */
-    public ExportOptions getOptions() {
+    public ExportOptions getOptions()
+    {
         return this.options;
     }
 
@@ -97,7 +107,8 @@ public abstract class DataWriter {
      * @param table the table to export to. Cannot be <code>null</code>.
      * @param rows the list of rows to export to. Cannot be <code>null</code>.
      */
-    public void writeTable(final Table table, final List<Row> rows) {
+    public void writeTable(final Table table, final List<Row> rows)
+    {
         Util.checkForNotNull(rows, "rows");
         Util.checkForNotNull(table, "table");
 
@@ -113,7 +124,8 @@ public abstract class DataWriter {
      * @param table the table. Cannot be <code>null</code>.
      * @param rows list of rows to write to. Cannot be <code>null</code>.
      */
-    public void writeRows(final Table table, final List<Row> rows) {
+    public void writeRows(final Table table, final List<Row> rows)
+    {
         Util.checkForNotNull(rows, "rows");
         Util.checkForNotNull(table, "table");
 
@@ -127,9 +139,11 @@ public abstract class DataWriter {
     /**
      * Writes the header for given table.
      *
-     * @param table the table whose header needs to be written. Cannot be <code>null</code>.
+     * @param table the table whose header needs to be written. Cannot be
+     *            <code>null</code>.
      */
-    public void writeHeader(final Table table) {
+    public void writeHeader(final Table table)
+    {
         Util.checkForNotNull(table, "table");
 
         if (this.options.isPrintHeaders() && table.getColumns() != null) {
@@ -151,12 +165,14 @@ public abstract class DataWriter {
     /**
      * Writes the row from given <code>rowDetails</code>
      *
-     * @param rowDetails the row details of the row being exported. Cannot be <code>null</code>.
+     * @param rowDetails the row details of the row being exported. Cannot be
+     *            <code>null</code>.
      */
-    public void writeRow(final RowDetails rowDetails) {
+    public void writeRow(final RowDetails rowDetails)
+    {
         Util.checkForNotNull(rowDetails, "rowDetails");
 
-        //Generate the row data
+        // Generate the row data
         generateRowData(rowDetails);
 
         final DataExporterCallback callback = rowDetails.getTable().getCallback();
@@ -191,20 +207,23 @@ public abstract class DataWriter {
         }
     }
 
-    protected void print(final char value) {
+    protected void print(final char value)
+    {
         print("" + value);
     }
 
-    protected void print(final String value) {
-        this.out.print(this.options.isEscapeHtml()?StringEscapeUtils.escapeHtml4(value):value);
+    protected void print(final String value)
+    {
+        this.out.print(this.options.isEscapeHtml() ? StringEscapeUtils.escapeHtml4(value) : value);
 
         if (this.autoFlush) {
             this.out.flush();
         }
     }
 
-    protected void println(final String value) {
-        this.out.print(this.options.isEscapeHtml()?StringEscapeUtils.escapeHtml4(value):value);
+    protected void println(final String value)
+    {
+        this.out.print(this.options.isEscapeHtml() ? StringEscapeUtils.escapeHtml4(value) : value);
         println();
 
         if (this.autoFlush) {
@@ -212,7 +231,8 @@ public abstract class DataWriter {
         }
     }
 
-    protected void println() {
+    protected void println()
+    {
         this.out.print(this.options.getLineSeparatorString());
 
         if (this.autoFlush) {
@@ -220,11 +240,13 @@ public abstract class DataWriter {
         }
     }
 
-    public void flush() {
+    public void flush()
+    {
         this.out.flush();
     }
 
-    public void finishExporting() {
+    public void finishExporting()
+    {
         this.rowIndex = new AtomicInteger();
     }
 
@@ -234,14 +256,15 @@ public abstract class DataWriter {
      *
      * @param rowDetails
      */
-    protected void generateRowData(final RowDetails rowDetails) {
+    protected void generateRowData(final RowDetails rowDetails)
+    {
         final List<Column> columns = rowDetails.getTable().getColumns();
-        final List<Object> cellValues = new ArrayList<Object>();
+        final List<Object> cellValues = new ArrayList<>();
 
-        //If column is configured as 'generates own data', then there would
-        //be less number of cell values in the row. We need to fill those
-        //missing cell values with null before asking call back to generate
-        //the data. This is to make sure column index reference is consistent.
+        // If column is configured as 'generates own data', then there would
+        // be less number of cell values in the row. We need to fill those
+        // missing cell values with null before asking call back to generate
+        // the data. This is to make sure column index reference is consistent.
         int skippedColumns = 0;
         for (int columnIndex = 0; columnIndex < columns.size(); columnIndex++) {
             final Column column = columns.get(columnIndex);
@@ -258,8 +281,9 @@ public abstract class DataWriter {
                     final BeanRow beanRow = (BeanRow) rowDetails.getRow();
                     cellValue = beanRow.getCellValue(column.getName());
                 } else {
-                    //If there are less number of cells added to the row than there are columns,
-                    //we would assume rest of the cells as nulls.
+                    // If there are less number of cells added to the row than
+                    // there are columns,
+                    // we would assume rest of the cells as nulls.
                     if (rowDetails.getRow().getCellValues().size() > cellDetails.getColumnIndex()) {
                         cellValue = rowDetails.getRow().getCellValue(cellDetails);
                     }
@@ -274,9 +298,10 @@ public abstract class DataWriter {
 
         rowDetails.getRow().setCellValues(cellValues);
 
-        //Go ahead and ask the call back to generate the data for such column.
-        //After generating the data, go ahead and ask the callback to override if
-        //applicable.
+        // Go ahead and ask the call back to generate the data for such column.
+        // After generating the data, go ahead and ask the callback to override
+        // if
+        // applicable.
         for (int columnIndex = 0; columnIndex < columns.size(); columnIndex++) {
 
             final CellDetails cellDetails = new CellDetails(rowDetails, columnIndex);
@@ -285,7 +310,8 @@ public abstract class DataWriter {
 
             if (column.isGeneratesOwnData()) {
                 if (column.getCellValueGenerator() == null) {
-                    throw new RuntimeException("Column " + column +  " configured as own data generator but callback is not configured.");
+                    throw new RuntimeException("Column " + column
+                                    + " configured as own data generator but callback is not configured.");
                 }
                 cellValue = column.getCellValueGenerator().generateCellValue(cellDetails);
             } else {
@@ -326,11 +352,14 @@ public abstract class DataWriter {
 
     public abstract void beforeFooterRow(Table table);
 
-//    public abstract void beforeFooterCell(FooterCellDetails footerCellDetails);
-//
-//    public abstract void writeFooterCell(FooterCellDetails footerCellDetails);
-//
-//    public abstract void afterFooterCell(FooterCellDetails footerCellDetails);
+    // public abstract void beforeFooterCell(FooterCellDetails
+    // footerCellDetails);
+    //
+    // public abstract void writeFooterCell(FooterCellDetails
+    // footerCellDetails);
+    //
+    // public abstract void afterFooterCell(FooterCellDetails
+    // footerCellDetails);
 
     public abstract void afterFooterRow(List<Column> columns);
 

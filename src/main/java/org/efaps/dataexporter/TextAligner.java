@@ -1,21 +1,18 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter;
 
@@ -28,24 +25,30 @@ import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.util.Util;
 
 /**
- * Class used to align the text according to different alignment modes. This is completely independent
+ * Class used to align the text according to different alignment modes. This is
+ * completely independent
  * class and can be used in other applications. Sample usage is shown below.
  *
  * <pre>
- *     public static void main(String[] args) {
- *         TextAligner textAligner = new TextAligner();
- *         for (AlignType align : AlignType.values()) {
  *
- *             System.out.println("&lt;h1&gt;" + align.toString() + "&lt;/h1&gt;");
- *             List&lt;String&gt; list = (textAligner.align(15, 10, align, "Hello world is the common phrase used everywhere. In this sentense somewordsarereallyreallybig ones."));
- *             for (String string : list) {
- *                 System.out.println("|" + string + "|");
- *             }
- *             System.out.println("");
+ * public static void main(String[] args)
+ * {
+ *     TextAligner textAligner = new TextAligner();
+ *     for (AlignType align : AlignType.values()) {
+ *
+ *         System.out.println("&lt;h1&gt;" + align.toString() + "&lt;/h1&gt;");
+ *         List&lt;String&gt; list = (textAligner.align(15, 10, align,
+ *                         "Hello world is the common phrase used everywhere. In this sentense somewordsarereallyreallybig ones."));
+ *         for (String string : list) {
+ *             System.out.println("|" + string + "|");
  *         }
+ *         System.out.println("");
  *     }
+ * }
  * </pre>
+ *
  * which produces the following output
+ *
  * <pre>
  * <h1>TOP_LEFT</h1>
  * |Hello world is |
@@ -156,10 +159,11 @@ import org.efaps.dataexporter.util.Util;
  * |          ones.|
  *
  * </pre>
+ *
  * @author Santhosh Kumar
  */
-public class TextAligner {
-
+public class TextAligner
+{
 
     /** The evaluate for line breaks. */
     private boolean evaluateForLineBreaks = false;
@@ -192,9 +196,7 @@ public class TextAligner {
      * @param _alignType the align type
      * @return the row height
      */
-    public int evaluateRowHeight(final int _width,
-                                 final String _data,
-                                 final AlignType _alignType)
+    public int evaluateRowHeight(final int _width, final String _data, final AlignType _alignType)
     {
         final List<String> alignedStrings = align(_width, _data.isEmpty() ? 1 : _data.length(), _alignType, _data);
         int rowHeight = 0;
@@ -207,19 +209,18 @@ public class TextAligner {
     }
 
     /**
-     * Aligns the given text according to requested alignment and returns the list of strings.
+     * Aligns the given text according to requested alignment and returns the
+     * list of strings.
      *
      * @param _width width of the cell. Cannot be less than 0
      * @param _height height of the cell. Cannot be less than 0
      * @param _align alignment mode.
-     * @param _data string data to be aligned. Can be null and if so, assumed empty.
+     * @param _data string data to be aligned. Can be null and if so, assumed
+     *            empty.
      *
      * @return returns the ArrayList of Strings, corresponding to aligned lines.
      */
-    public List<String> align(final int _width,
-                              final int _height,
-                              final AlignType _align,
-                              final String _data)
+    public List<String> align(final int _width, final int _height, final AlignType _align, final String _data)
     {
         return align(_width, _height, _align, _data, " ");
     }
@@ -234,10 +235,7 @@ public class TextAligner {
      * @param _filler the filler
      * @return the list< string>
      */
-    public List<String> align(final int _width,
-                              final int _height,
-                              final AlignType _align,
-                              final String _data,
+    public List<String> align(final int _width, final int _height, final AlignType _align, final String _data,
                               final String _filler)
     {
         Util.checkForNotNull(_align, "align");
@@ -263,9 +261,10 @@ public class TextAligner {
         // If number of words are larger than height, compact to at least
         // height.
         // Compacting happens starting at top, middle or bottom as requested
-        final List<String> compacted = new ArrayList<String>();
+        final List<String> compacted = new ArrayList<>();
 
-        // If the data length is less than column width and does not contain linebreaks,
+        // If the data length is less than column width and does not contain
+        // linebreaks,
         // then there is nothing to compact.
         // Issue# 1
         if (data.length() <= _width && !lineBreaks) {
@@ -315,7 +314,7 @@ public class TextAligner {
                 for (final String wrd : wrdTmp) {
                     final String[] splitArr = wrd.split("\\s");
                     final int[] grpTmp = new int[splitArr.length];
-                    Arrays.fill(grpTmp , i);
+                    Arrays.fill(grpTmp, i);
                     grps = ArrayUtils.addAll(grps, grpTmp);
                     wordsTmp = ArrayUtils.addAll(wordsTmp, splitArr);
                     i++;
@@ -324,19 +323,19 @@ public class TextAligner {
             } else {
                 words = data.split("\\s");
                 grps = new int[words.length];
-                Arrays.fill(grps , 0);
+                Arrays.fill(grps, 0);
             }
             // Check if any word is bigger than the width. If so, split into
             // multiple words.
-            int[] grpsFinal =  new int[0];
-            final List<String> wordsFinal = new ArrayList<String>();
+            int[] grpsFinal = new int[0];
+            final List<String> wordsFinal = new ArrayList<>();
             int idx = 0;
             for (final String word : words) {
                 if (word.trim().length() >= _width) {
                     final List<String> splitted = splitWord(word, _width);
                     wordsFinal.addAll(splitted);
                     final int[] grpTmp = new int[splitted.size()];
-                    Arrays.fill(grpTmp , grps[idx]);
+                    Arrays.fill(grpTmp, grps[idx]);
                     grpsFinal = ArrayUtils.addAll(grpsFinal, grpTmp);
                 } else {
                     wordsFinal.add(word.trim());
@@ -358,7 +357,7 @@ public class TextAligner {
                         // and still fits
                         // in the width
                         if ((sb.length() == 0 ? 0 : sb.length() + 1) + wordsFinal.get(i).length() <= _width
-                                        && (!lineBreaks || (lineBreaks && grpsFinal[i] == current1))) {
+                                        && (!lineBreaks || lineBreaks && grpsFinal[i] == current1)) {
                             if (sb.length() > 0) {
                                 sb.append(" ");
                             }
@@ -390,13 +389,14 @@ public class TextAligner {
                     if (midwayIndex >= wordsFinal.size()) {
                         midwayIndex--;
                     }
-                    int current2 = grpsFinal[grpsFinal.length - 1];;
+                    int current2 = grpsFinal[grpsFinal.length - 1];
+                    ;
                     for (int i = midwayIndex; i >= 0; i--) {
                         // See if this word could be joined with previous string
                         // and still fits
                         // in the widths
-                        if (sb.length() + wordsFinal.get(i).length() <= _width - 1
-                                        && (!lineBreaks || (lineBreaks && grpsFinal[i] == current2))) {
+                        if (sb.length() + wordsFinal.get(i).length() <= _width - 1 && (!lineBreaks || lineBreaks
+                                        && grpsFinal[i] == current2)) {
                             if (sb.length() > 0) {
                                 sb.insert(0, " ");
                             }
@@ -449,13 +449,14 @@ public class TextAligner {
                 case BOTTOM_LEFT:
                 case BOTTOM_CENTER:
                 case BOTTOM_RIGHT:
-                    int current3 = grpsFinal[grpsFinal.length - 1];;
+                    int current3 = grpsFinal[grpsFinal.length - 1];
+                    ;
                     for (int i = wordsFinal.size() - 1; i >= 0; i--) {
                         // See if this word could be joined with previous string
                         // and still fits
                         // in the widths
-                        if (sb.length() + wordsFinal.get(i).length() <= _width - 1
-                                        && (!lineBreaks || (lineBreaks && grpsFinal[i] == current3))) {
+                        if (sb.length() + wordsFinal.get(i).length() <= _width - 1 && (!lineBreaks || lineBreaks
+                                        && grpsFinal[i] == current3)) {
                             if (sb.length() > 0) {
                                 sb.insert(0, " ");
                             }
@@ -480,7 +481,7 @@ public class TextAligner {
             }
         }
 
-        final List<String> aligned = new ArrayList<String>();
+        final List<String> aligned = new ArrayList<>();
 
         // Align Horizontal
         for (int i = 0; i < compacted.size(); i++) {
@@ -524,9 +525,7 @@ public class TextAligner {
      * @param _endIndex the end index
      * @return the string
      */
-    private String substring(final String _data,
-                             int _startIndex,
-                             int _endIndex)
+    private String substring(final String _data, int _startIndex, int _endIndex)
     {
         if (_startIndex < 0) {
             _startIndex = 0;
@@ -546,10 +545,9 @@ public class TextAligner {
      * @param _width the width
      * @return the list< string>
      */
-    private List<String> splitWord(final String _word,
-                                   final int _width)
+    private List<String> splitWord(final String _word, final int _width)
     {
-        final List<String> words = new ArrayList<String>();
+        final List<String> words = new ArrayList<>();
         int startIndex = 0;
         while (startIndex < _word.length()) {
             words.add(substring(_word, startIndex, startIndex + _width).trim());

@@ -1,5 +1,5 @@
 /*
- * Copyright 2003 - 2015 The eFaps Team
+ * Copyright 2003 - 2018 The eFaps Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -112,11 +112,8 @@ public class TreeWriter
      * @param _isHead the _is head
      * @param _isTail the _is tail
      */
-    private void printTreeNode(final RowDetails _rowDetails,
-                               final String _prefix,
-                               final boolean _isRoot,
-                               final boolean _isHead,
-                               final boolean _isTail)
+    private void printTreeNode(final RowDetails _rowDetails, final String _prefix, final boolean _isRoot,
+                               final boolean _isHead, final boolean _isTail)
     {
 
         final Row row = _rowDetails.getRow();
@@ -125,8 +122,8 @@ public class TreeWriter
         if (_isRoot) {
             nodePrefix = getStyle().getRootNodePrefix();
 
-        } else if (row.getChildren() != null && !row.getChildren().isEmpty()
-                        && getStyle().getParentNodePrefix() != null) {
+        } else if (row.getChildren() != null && !row.getChildren().isEmpty() && getStyle()
+                        .getParentNodePrefix() != null) {
             nodePrefix = getStyle().getParentNodePrefix();
 
         } else if (_isHead) {
@@ -163,18 +160,14 @@ public class TreeWriter
                 final Row child = children.get(i);
                 final RowDetails rowDetails = new RowDetails(_rowDetails.getTable(), this.rowIndex.getAndIncrement(),
                                 child);
-                printTreeNode(rowDetails,
-                                _prefix + (_isTail ? getStyle().getLastLevelSeparator()
-                                                : getStyle().getLevelSeparator()),
-                                false, i == 0, false);
+                printTreeNode(rowDetails, _prefix + (_isTail ? getStyle().getLastLevelSeparator()
+                                : getStyle().getLevelSeparator()), false, i == 0, false);
             }
             if (children.size() >= 1) {
                 final RowDetails rowDetails = new RowDetails(_rowDetails.getTable(), this.rowIndex.getAndIncrement(),
                                 children.get(children.size() - 1));
-                printTreeNode(rowDetails,
-                                _prefix + (_isTail ? getStyle().getLastLevelSeparator()
-                                                : getStyle().getLevelSeparator()),
-                                false, false, true);
+                printTreeNode(rowDetails, _prefix + (_isTail ? getStyle().getLastLevelSeparator()
+                                : getStyle().getLevelSeparator()), false, false, true);
             }
         }
     }

@@ -1,46 +1,50 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter.output.texttable;
 
 import org.efaps.dataexporter.model.AbstractDataExporterCallback;
 import org.efaps.dataexporter.model.RowDetails;
 
-public class AbstractTextTableCallback extends AbstractDataExporterCallback implements TextTableRowCallback {
+public class AbstractTextTableCallback
+    extends AbstractDataExporterCallback
+    implements TextTableRowCallback
+{
 
     @Override
-    public int getMinRowHeight(RowDetails rowDetails, int defaultMaxRowHeight) {
+    public int getMinRowHeight(final RowDetails rowDetails, final int defaultMaxRowHeight)
+    {
         return 0;
     }
 
     @Override
-    public boolean isDisplayRowBorder(RowDetails rowDetails, boolean defaultDisplayRowBorder) {
+    public boolean isDisplayRowBorder(final RowDetails rowDetails, final boolean defaultDisplayRowBorder)
+    {
         return false;
     }
 
     @Override
-    public String getLeftDivider(RowDetails rowDetails, String defaultDivider) {
+    public String getLeftDivider(final RowDetails rowDetails, final String defaultDivider)
+    {
         return null;
     }
 
     @Override
-    public String getRightDivider(RowDetails rowDetails, String defaultDivider) {
+    public String getRightDivider(final RowDetails rowDetails, final String defaultDivider)
+    {
         return null;
     }
 }

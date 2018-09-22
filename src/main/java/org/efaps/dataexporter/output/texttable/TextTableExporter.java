@@ -1,21 +1,18 @@
 /*
- * #%L
- * data-exporter
- * %%
- * Copyright (C) 2012 - 2013 http://www.brsanthu.com
- * %%
+ * Copyright 2003 - 2018 The eFaps Team
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * #L%
+ *
  */
 package org.efaps.dataexporter.output.texttable;
 
@@ -25,11 +22,14 @@ import java.io.Writer;
 import org.efaps.dataexporter.DataExporter;
 
 /**
- * Exporter which exports the dataset in Text table format. Text table exporter supports
- * many options and export styles. Check {@link TextTableExportOptions} for more information.
+ * Exporter which exports the dataset in Text table format. Text table exporter
+ * supports
+ * many options and export styles. Check {@link TextTableExportOptions} for more
+ * information.
  * <p>
- * 
+ *
  * Sample text table is shown below.
+ *
  * <pre>
  *  +=====+=======================+==========+===============+==========+==========+==========+==========+
  *  |Line |    Date Purchased     | Item No  |   Item Name   | Shipped? | Quantity |Unit Price|  Price   |
@@ -39,36 +39,49 @@ import org.efaps.dataexporter.DataExporter;
  *  |    2|2011/04/04 04:38:08 PM |         2|Mouse          |Yes       |         2|    $49.30|    $98.60|
  *  |    3|2011/04/04 04:04:06 PM |         3|Keyboard       |No        |         5|    $75.00|   $375.00|
  *  +=====+=======================+==========+===============+==========+==========+==========+==========+
- *  </pre>
- *  
+ * </pre>
+ *
  * @author Santhosh Kumar
  *
  */
-public class TextTableExporter extends DataExporter {
+public class TextTableExporter
+    extends DataExporter
+{
 
-    public TextTableExporter(OutputStream out) {
+    public TextTableExporter(final OutputStream out)
+    {
         this(new TextTableExportOptions(), out);
     }
 
-    public TextTableExporter(TextTableExportOptions options, OutputStream out) {
+    public TextTableExporter(final TextTableExportOptions options,
+                             final OutputStream out)
+    {
         super(new TextTableWriter(options, out));
     }
 
-    public TextTableExporter(Writer out) {
+    public TextTableExporter(final Writer out)
+    {
         this(new TextTableExportOptions(), out);
     }
-    public TextTableExporter(TextTableExportOptions options, Writer out) {
+
+    public TextTableExporter(final TextTableExportOptions options,
+                             final Writer out)
+    {
         super(new TextTableWriter(options, out));
     }
-    
-    public TextTableExporter() {
+
+    public TextTableExporter()
+    {
         this(System.out);
     }
-    public TextTableExporter(TextTableExportOptions options) {
+
+    public TextTableExporter(final TextTableExportOptions options)
+    {
         this(options, System.out);
     }
-    
-    public TextTableExportOptions getTextTableExportOptions() {
+
+    public TextTableExportOptions getTextTableExportOptions()
+    {
         return (TextTableExportOptions) getOptions();
     }
 }
