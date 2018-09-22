@@ -20,7 +20,6 @@
 package org.efaps.dataexporter.output.csv;
 
 import java.io.StringWriter;
-import java.sql.Date;
 
 import org.efaps.dataexporter.AbstractDataExporterTestBase;
 import org.efaps.dataexporter.DataExporter;
@@ -36,9 +35,9 @@ public class CsvExporterTest
     {
         addData();
 
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
                         1), new Double(799.78));
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap,top", new Boolean(false), new Integer(
                         1), new Double(799.78));
         getDataExporter().finishExporting();
 
@@ -46,18 +45,18 @@ public class CsvExporterTest
     }
 
     @Test
-    public void testStictQuoting()
+    public void testStrictQuoting()
         throws Exception
     {
         ((CsvExportOptions) getDataExporter().getOptions()).setStrictQuoting(true);
         addData();
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap\"top", new Boolean(false), new Integer(
                         1), new Double(799.78));
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap,top", new Boolean(false), new Integer(
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap,top", new Boolean(false), new Integer(
                         1), new Double(799.78));
         getDataExporter().finishExporting();
 
-        compareText("testStictQuoting.txt", getStringWriter().toString());
+        compareText("testStrictQuoting.txt", getStringWriter().toString());
     }
 
     @Override

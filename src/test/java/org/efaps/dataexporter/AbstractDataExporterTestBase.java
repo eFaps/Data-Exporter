@@ -22,15 +22,14 @@ import static org.apache.commons.lang3.StringUtils.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.sql.Date;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.efaps.dataexporter.model.BooleanColumn;
-import org.efaps.dataexporter.model.CellDetails;
-import org.efaps.dataexporter.model.CellValueGenerator;
 import org.efaps.dataexporter.model.CurrencyColumn;
 import org.efaps.dataexporter.model.DateColumn;
 import org.efaps.dataexporter.model.LineNumberColumn;
@@ -48,11 +47,10 @@ public abstract class AbstractDataExporterTestBase
 {
 
     /** The date reference. */
-    protected long dateReference = 1303413278558l; // Thu Apr 21 12:14:38 PDT 2011
+    private final LocalDateTime baseDate = LocalDateTime.of(2018, 8, 26, 16, 33, 12, 0);
 
     /** The string writer. */
     private StringWriter stringWriter;
-
 
     /** The exporter. */
     private DataExporter exporter;
@@ -101,23 +99,18 @@ public abstract class AbstractDataExporterTestBase
     public void setup()
     {
         this.exporter = getNewDataExporter();
-        this.exporter.addColumns(new LineNumberColumn("lineNo", "Line No", 5), new DateColumn("datePurchased",
-                        "Date Purchased", 23, "yyyy/MM/dd hh:mm:ss a"), new NumberColumn("itemNo", "Item No", 10, 0),
-                        new StringColumn("itemName", "Item Name", 15), new BooleanColumn("shipped", "Shipped?", 10),
-                        new NumberColumn("quantity", "Quantity", 10, 0), new CurrencyColumn("unitPrice", "Unit Price",
-                                        10, "$"), new CurrencyColumn("price", "Price", 10, "$").setGeneratesOwnData(
-                                                        true).setCellValueGenerator(new CellValueGenerator()
-                                                        {
-
-                                                            @Override
-                                                            public Object generateCellValue(final CellDetails cellDetails)
-                                                            {
-                                                                return new Double(((Integer) cellDetails.getRow()
-                                                                                .getCellValue(5))
-                                                                                * ((Double) cellDetails.getRow()
-                                                                                                .getCellValue(6)));
-                                                            }
-                                                        }));
+        this.exporter.addColumns(new LineNumberColumn("lineNo", "Line No", 5),
+                        new DateColumn("datePurchased", "Date Purchased", 23, "yyyy/MM/dd hh:mm:ss a"),
+                        new NumberColumn("itemNo", "Item No", 10, 0),
+                        new StringColumn("itemName", "Item Name", 15),
+                        new BooleanColumn("shipped", "Shipped?", 10),
+                        new NumberColumn("quantity", "Quantity", 10, 0),
+                        new CurrencyColumn("unitPrice", "Unit Price", 10, "$"),
+                        new CurrencyColumn("price", "Price", 10, "$")
+                            .setGeneratesOwnData(true)
+                            .setCellValueGenerator(cellDetails ->
+                                new Double((Integer) cellDetails.getRow().getCellValue(5)
+                                                * (Double) cellDetails.getRow().getCellValue(6))));
     }
 
     /**
@@ -126,11 +119,11 @@ public abstract class AbstractDataExporterTestBase
     protected void addData()
     {
 
-        this.exporter.addRow(new Date(this.dateReference - 2397984), new Integer(1), "Laptop", new Boolean(false),
+        this.exporter.addRow(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false),
                         new Integer(1), new Double(799.78));
-        this.exporter.addRow(new Date(this.dateReference - 232042098), new Integer(2), "Mouse", new Boolean(true),
+        this.exporter.addRow(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true),
                         new Integer(2), new Double(49.30));
-        this.exporter.addRow(new Date(this.dateReference - 234084277), new Integer(3), "Keyboard", new Boolean(false),
+        this.exporter.addRow(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(false),
                         new Integer(5), new Double(75));
     }
 
@@ -139,14 +132,13 @@ public abstract class AbstractDataExporterTestBase
      */
     protected void addDataBeans()
     {
-        final List<SampleBean> beans = new ArrayList<SampleBean>();
-        beans.add(new SampleBean(new Date(this.dateReference - 2397984), new Integer(1), "Laptop", new Boolean(false),
+        final List<SampleBean> beans = new ArrayList<>();
+        beans.add(new SampleBean(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false),
                         new Integer(1), new Double(799.78)));
-        beans.add(new SampleBean(new Date(this.dateReference - 232042098), new Integer(2), "Mouse", new Boolean(true),
+        beans.add(new SampleBean(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true),
                         new Integer(2), new Double(49.30)));
-        beans.add(new SampleBean(new Date(this.dateReference - 234084277), new Integer(3), "Keyboard", new Boolean(
+        beans.add(new SampleBean(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(
                         false), new Integer(5), new Double(75)));
-
         this.exporter.addBeanRows(beans);
     }
 
@@ -176,7 +168,7 @@ public abstract class AbstractDataExporterTestBase
         final InputStream inputStream = this.getClass().getResourceAsStream(file);
         Assert.assertNotNull(inputStream, "Couldn't read the reference template");
 
-        String expected = IOUtils.toString(inputStream);
+        String expected = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         if (isNotEmpty(message)) {
             System.out.println("\nExpected (" + message + "/" + file + ")\n"+ expected);
         } else {
@@ -189,4 +181,23 @@ public abstract class AbstractDataExporterTestBase
         Assert.assertEquals(expected.trim(), text.trim());
     }
 
+    protected LocalDateTime getBaseDate()
+    {
+        return this.baseDate;
+    }
+
+    protected LocalDateTime getDate4Laptop()
+    {
+        return this.baseDate.minusDays(2);
+    }
+
+    protected LocalDateTime getDate4Mouse()
+    {
+        return this.baseDate.plusHours(4);
+    }
+
+    protected LocalDateTime getDate4Keyboard()
+    {
+        return this.baseDate.plusMonths(1).plusHours(2).plusMinutes(15);
+    }
 }

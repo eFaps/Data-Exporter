@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,18 +19,18 @@
  */
 package org.efaps.dataexporter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class SampleBean {
 
-    private Date datePurchased = null;
+    private LocalDateTime datePurchased = null;
     private int itemNo = 0;
     private String itemName = null;
     private boolean shipped = false;
     private int quantity = 0;
     private double unitPrice = 0.0;
-    public SampleBean(Date datePurchased, int itemNum, String itemName, boolean shipped,
-                    int quantity, double unitPrice) {
+    public SampleBean(final LocalDateTime datePurchased, final int itemNum, final String itemName,
+                      final boolean shipped, final int quantity, final double unitPrice) {
         super();
         this.datePurchased = datePurchased;
         this.itemNo = itemNum;
@@ -39,42 +39,40 @@ public class SampleBean {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
     }
-    public Date getDatePurchased() {
-        return datePurchased;
+    public LocalDateTime getDatePurchased() {
+        return this.datePurchased;
     }
-    public void setDatePurchased(Date datePurchased) {
+    public void setDatePurchased(final LocalDateTime datePurchased) {
         this.datePurchased = datePurchased;
     }
     public int getItemNo() {
-        return itemNo;
+        return this.itemNo;
     }
-    public void setItemNo(int itemNum) {
+    public void setItemNo(final int itemNum) {
         this.itemNo = itemNum;
     }
     public String getItemName() {
-        return itemName;
+        return this.itemName;
     }
-    public void setItemName(String itemName) {
+    public void setItemName(final String itemName) {
         this.itemName = itemName;
     }
     public boolean isShipped() {
-        return shipped;
+        return this.shipped;
     }
-    public void setShipped(boolean shipped) {
+    public void setShipped(final boolean shipped) {
         this.shipped = shipped;
     }
     public int getQuantity() {
-        return quantity;
+        return this.quantity;
     }
-    public void setQuantity(int quantity) {
+    public void setQuantity(final int quantity) {
         this.quantity = quantity;
     }
     public double getUnitPrice() {
-        return unitPrice;
+        return this.unitPrice;
     }
-    public void setUnitPrice(double unitPrice) {
+    public void setUnitPrice(final double unitPrice) {
         this.unitPrice = unitPrice;
     }
-    
-    
 }
