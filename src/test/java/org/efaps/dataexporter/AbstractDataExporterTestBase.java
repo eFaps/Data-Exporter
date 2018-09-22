@@ -1,5 +1,5 @@
 /*
- * Copyright 2003 - 2015 The eFaps Team
+ * Copyright 2003 - 2018 The eFaps Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -108,9 +108,9 @@ public abstract class AbstractDataExporterTestBase
                         new CurrencyColumn("unitPrice", "Unit Price", 10, "$"),
                         new CurrencyColumn("price", "Price", 10, "$")
                             .setGeneratesOwnData(true)
-                            .setCellValueGenerator(cellDetails ->
-                                new Double((Integer) cellDetails.getRow().getCellValue(5)
-                                                * (Double) cellDetails.getRow().getCellValue(6))));
+                            .setCellValueGenerator(
+                                cellDetails -> new Double((Integer) cellDetails.getRow().getCellValue(5)
+                                                                    * (Double) cellDetails.getRow().getCellValue(6))));
     }
 
     /**
@@ -119,12 +119,12 @@ public abstract class AbstractDataExporterTestBase
     protected void addData()
     {
 
-        this.exporter.addRow(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false),
-                        new Integer(1), new Double(799.78));
-        this.exporter.addRow(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true),
-                        new Integer(2), new Double(49.30));
-        this.exporter.addRow(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(false),
-                        new Integer(5), new Double(75));
+        this.exporter.addRow(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false), new Integer(1), new Double(
+                        799.78));
+        this.exporter.addRow(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true), new Integer(2), new Double(
+                        49.30));
+        this.exporter.addRow(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(false), new Integer(5),
+                        new Double(75));
     }
 
     /**
@@ -133,12 +133,12 @@ public abstract class AbstractDataExporterTestBase
     protected void addDataBeans()
     {
         final List<SampleBean> beans = new ArrayList<>();
-        beans.add(new SampleBean(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false),
-                        new Integer(1), new Double(799.78)));
-        beans.add(new SampleBean(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true),
-                        new Integer(2), new Double(49.30)));
-        beans.add(new SampleBean(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(
-                        false), new Integer(5), new Double(75)));
+        beans.add(new SampleBean(getDate4Laptop(), new Integer(1), "Laptop", new Boolean(false), new Integer(1),
+                        new Double(799.78)));
+        beans.add(new SampleBean(getDate4Mouse(), new Integer(2), "Mouse", new Boolean(true), new Integer(2),
+                        new Double(49.30)));
+        beans.add(new SampleBean(getDate4Keyboard(), new Integer(3), "Keyboard", new Boolean(false), new Integer(5),
+                        new Double(75)));
         this.exporter.addBeanRows(beans);
     }
 
@@ -149,9 +149,8 @@ public abstract class AbstractDataExporterTestBase
      * @param text the text
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    protected void compareText(final String file,
-                               final String text)
-                                   throws IOException
+    protected void compareText(final String file, final String text)
+        throws IOException
     {
         compareText(null, file, text);
     }
@@ -164,17 +163,19 @@ public abstract class AbstractDataExporterTestBase
      * @param text the text
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    protected void compareText(final String message, final String file, String text) throws IOException {
+    protected void compareText(final String message, final String file, String text)
+        throws IOException
+    {
         final InputStream inputStream = this.getClass().getResourceAsStream(file);
         Assert.assertNotNull(inputStream, "Couldn't read the reference template");
 
         String expected = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         if (isNotEmpty(message)) {
-            System.out.println("\nExpected (" + message + "/" + file + ")\n"+ expected);
+            System.out.println("\nExpected (" + message + "/" + file + ")\n" + expected);
         } else {
-            System.out.println("\nExpected (" +  file + ")\n"+ expected);
+            System.out.println("\nExpected (" + file + ")\n" + expected);
         }
-        System.out.println("\nProduced:\n"+ text);
+        System.out.println("\nProduced:\n" + text);
 
         expected = StringUtils.replace(expected, "\r\n", "\n");
         text = StringUtils.replace(text, "\r\n", "\n");
