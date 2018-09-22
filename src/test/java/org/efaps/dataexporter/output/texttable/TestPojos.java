@@ -23,7 +23,8 @@ import org.testng.annotations.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
 import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 
@@ -34,7 +35,7 @@ public class TestPojos
     private static final String POJO_PACKAGE = TestPojos.class.getPackage().getName();
 
     private List<PojoClass> pojoClasses;
-    private PojoValidator pojoValidator;
+    private Validator pojoValidator;
 
     @BeforeTest
     public void setup()
@@ -44,18 +45,15 @@ public class TestPojos
             return pojoClass.getName().endsWith("Style");
         });
 
-        this.pojoValidator = new PojoValidator();
-
-        // Create Testers to validate behavior for POJO_PACKAGE
-        this.pojoValidator.addTester(new SetterTester());
-        this.pojoValidator.addTester(new GetterTester());
+        this.pojoValidator = ValidatorBuilder.create()
+                        .with(new SetterTester())
+                        .with(new GetterTester())
+                        .build();
     }
 
     @Test
     public void testPojos()
     {
-        for (final PojoClass pojoClass : this.pojoClasses) {
-            this.pojoValidator.runValidation(pojoClass);
-        }
+        this.pojoValidator.validate(this.pojoClasses);
     }
 }
