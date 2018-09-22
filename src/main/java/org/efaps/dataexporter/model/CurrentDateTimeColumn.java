@@ -16,7 +16,7 @@
  */
 package org.efaps.dataexporter.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Column which generates the current date time.
@@ -47,6 +47,6 @@ public class CurrentDateTimeColumn
     private void setUpColumn()
     {
         setGeneratesOwnData(true);
-        setCellValueGenerator(cellDetails -> new Date());
+        setCellValueGenerator(cellDetails -> LocalDateTime.now());
     }
 }
