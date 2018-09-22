@@ -19,7 +19,7 @@ package org.efaps.dataexporter.output.html;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.efaps.dataexporter.AbstractDataWriter;
 import org.efaps.dataexporter.model.AlignType;
 import org.efaps.dataexporter.model.CellDetails;

@@ -20,8 +20,8 @@
         <url>https://github.com/eFaps/Data-Exporter</url>
         <connection>scm:git:git@github.com:eFaps/data-exporter</connection>
         <developerConnection>scm:git:git@github.com:eFaps/data-exporter</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <issueManagement>
         <system>github.com</system>
         <url>https://github.com/eFaps/Data-Exporter/issues</url>
@@ -75,8 +75,8 @@
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8</version>
+            <artifactId>commons-text</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.efaps.dataexporter.model.BeanRow;
 import org.efaps.dataexporter.model.CellDetails;
 import org.efaps.dataexporter.model.Column;

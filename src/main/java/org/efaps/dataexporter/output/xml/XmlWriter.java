@@ -19,7 +19,7 @@ package org.efaps.dataexporter.output.xml;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.efaps.dataexporter.AbstractDataWriter;
 import org.efaps.dataexporter.model.CellDetails;
 import org.efaps.dataexporter.model.RowDetails;
@@ -91,7 +91,7 @@ public class XmlWriter
         final String title2 = cellDetails.getColumn().getTitle2();
         final String title3 = cellDetails.getColumn().getTitle3();
         final String name = title + (!"".equals(title2) ? " " + title2 : "") + (!"".equals(title3) ? " " + title3 : "");
-        final String cellValue = StringEscapeUtils.escapeXml(cellDetails.getColumn().format(cellDetails));
+        final String cellValue = StringEscapeUtils.escapeXml10(cellDetails.getColumn().format(cellDetails));
         final String nil = cellDetails.getColumn().isNillable() && "".equals(cellValue) ? " xsi:nil=\"true\"" : "";
         print("<column name=\"" + name + "\"" + nil + ">" + cellValue + "</column>");
     }
