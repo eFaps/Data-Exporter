@@ -20,7 +20,6 @@
 package org.efaps.dataexporter.output.json;
 
 import java.io.StringWriter;
-import java.sql.Date;
 
 import org.efaps.dataexporter.AbstractDataExporterTestBase;
 import org.efaps.dataexporter.DataExporter;
@@ -44,7 +43,7 @@ public class JsonExporterTest
         throws Exception
     {
         addData();
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
         getDataExporter().finishExporting();
 
@@ -57,7 +56,7 @@ public class JsonExporterTest
     {
         ((JsonExporter) getDataExporter()).getJsonExportOptions().setPrettyPrint(true);
         addData();
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
         getDataExporter().finishExporting();
 
@@ -70,7 +69,7 @@ public class JsonExporterTest
     {
         ((JsonExporter) getDataExporter()).getJsonExportOptions().setPrettyPrint(true).setDoubleEscape(true);
         addData();
-        getDataExporter().addRow(new Date(this.dateReference - 2397984), new Integer(1), "Lap\"top", new Boolean(false),
+        getDataExporter().addRow(getDate4Laptop(), new Integer(1), "Lap\"top", new Boolean(false),
                         new Integer(1), new Double(799.78));
         getDataExporter().finishExporting();
 

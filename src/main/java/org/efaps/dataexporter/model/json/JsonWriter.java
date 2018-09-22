@@ -80,7 +80,6 @@ public class JsonWriter
     @Override
     public void beforeRow(final RowDetails rowDetails)
     {
-
         if (rowDetails.getRowIndex() != 0) {
             print(", ");
         }
@@ -142,7 +141,7 @@ public class JsonWriter
         if (getJsonExportOptions().isPrettyPrint()) {
             print("\n");
             for (int i = 0; i < level; i++) {
-                print('\t');
+                print("    ");
             }
         }
     }
