@@ -16,14 +16,14 @@
  */
 package org.efaps.dataexporter.model;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.StringWriter;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import org.efaps.dataexporter.output.text.TextExporter;
 import org.testng.annotations.Test;
-
-import static org.junit.Assert.*;
 
 public class TestNumberColumn
 {
